@@ -5,80 +5,334 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ANURAG ACHANTA | CYBER_TERMINAL</title>
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Courier New', monospace; background: #000; color: #00ff88; overflow-x: hidden; }
-        .hero-banner { position: fixed; top: 0; left: 0; width: 100%; height: 100vh; z-index: 0; opacity: 0.15;
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Courier New', monospace;
+            background: #000;
+            color: #00ff88;
+            overflow-x: hidden;
+        }
+
+        .hero-banner {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            z-index: 0;
+            opacity: 0.15;
             background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080"><rect fill="%23000"/></svg>');
-            background-size: cover; background-position: center; filter: brightness(0.6) contrast(1.2);
+            background-size: cover;
+            background-position: center;
+            filter: brightness(0.6) contrast(1.2);
         }
-        .scanlines { position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: linear-gradient(rgba(18,16,16,0) 50%, rgba(0,0,0,0.25) 50%); background-size: 100% 4px;
-            z-index: 9999; pointer-events: none; animation: scanline 8s linear infinite;
+
+        .scanlines {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                rgba(18, 16, 16, 0) 50%,
+                rgba(0, 0, 0, 0.25) 50%
+            );
+            background-size: 100% 4px;
+            z-index: 9999;
+            pointer-events: none;
+            animation: scanline 8s linear infinite;
         }
-        @keyframes scanline {0% {background-position:0 0;}100%{background-position:0 100%;}}
-        .crt::before { content: " "; display: block; position: fixed; top: 0; left: 0; bottom: 0; right: 0;
-            background: rgba(18,16,16,0.1); opacity: 0; z-index: 9998; pointer-events: none; animation: flicker 0.15s infinite;}
-        @keyframes flicker {0%{opacity:0.27861;}5%{opacity:0.34769;}10%{opacity:0.23604;}15%{opacity:0.90626;}20%{opacity:0.18128;}
-            25%{opacity:0.83891;}30%{opacity:0.65583;}35%{opacity:0.67807;}40%{opacity:0.26559;}45%{opacity:0.84693;}
-            50%{opacity:0.96019;}55%{opacity:0.08594;}60%{opacity:0.20313;}65%{opacity:0.71988;}70%{opacity:0.53455;}
-            75%{opacity:0.37288;}80%{opacity:0.71428;}85%{opacity:0.70419;}90%{opacity:0.7003;}95%{opacity:0.36108;}
-            100%{opacity:0.24387;}
+
+        @keyframes scanline {
+            0% { background-position: 0 0; }
+            100% { background-position: 0 100%; }
         }
-        .terminal-container { max-width: 1200px; margin: 20px auto; padding: 20px; position: relative; z-index: 1; }
-        .terminal-header { background: #1a1a1a; border: 2px solid #00ff88; border-bottom: none; padding: 10px 20px;
-            display: flex; align-items: center; gap: 10px;
+
+        .crt::before {
+            content: " ";
+            display: block;
+            position: fixed;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+            background: rgba(18, 16, 16, 0.1);
+            opacity: 0;
+            z-index: 9998;
+            pointer-events: none;
+            animation: flicker 0.15s infinite;
         }
-        .terminal-button { width: 12px; height: 12px; border-radius: 50%; display: inline-block; }
+
+        @keyframes flicker {
+            0% { opacity: 0.27861; }
+            5% { opacity: 0.34769; }
+            10% { opacity: 0.23604; }
+            15% { opacity: 0.90626; }
+            20% { opacity: 0.18128; }
+            25% { opacity: 0.83891; }
+            30% { opacity: 0.65583; }
+            35% { opacity: 0.67807; }
+            40% { opacity: 0.26559; }
+            45% { opacity: 0.84693; }
+            50% { opacity: 0.96019; }
+            55% { opacity: 0.08594; }
+            60% { opacity: 0.20313; }
+            65% { opacity: 0.71988; }
+            70% { opacity: 0.53455; }
+            75% { opacity: 0.37288; }
+            80% { opacity: 0.71428; }
+            85% { opacity: 0.70419; }
+            90% { opacity: 0.7003; }
+            95% { opacity: 0.36108; }
+            100% { opacity: 0.24387; }
+        }
+
+        .terminal-container {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .terminal-header {
+            background: #1a1a1a;
+            border: 2px solid #00ff88;
+            border-bottom: none;
+            padding: 10px 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .terminal-button {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            display: inline-block;
+        }
+
         .btn-close { background: #ff5f56; }
         .btn-minimize { background: #ffbd2e; }
         .btn-maximize { background: #27c93f; }
-        .terminal-title { margin-left: 10px; font-size: 0.9em; opacity: 0.7; }
-        .terminal-body { background: rgba(10,10,10,0.95); border: 2px solid #00ff88; padding: 30px; min-height: 600px;
-            box-shadow: 0 0 30px rgba(0,255,136,0.3); backdrop-filter: blur(10px);
-        }
-        .terminal-output { margin-bottom: 20px; }
-        .terminal-line { margin: 5px 0; opacity: 0; animation: fadeInText 0.1s forwards; }
-        @keyframes fadeInText { to { opacity: 1; } }
-        .prompt { color: #00ffcc; text-shadow: 0 0 5px #00ffcc; }
-        .success { color: #00ff88; }
-        .warning { color: #ffaa00; }
-        .error { color: #ff4444; }
-        .info { color: #00ccff; }
-        .gold { color: #ffd700; }
-        .typing-cursor { display: inline-block; width: 10px; height: 18px; background: #00ff88; animation: blink 1s infinite; vertical-align: middle;}
-        @keyframes blink { 0%,50% { opacity: 1; } 51%,100% { opacity: 0; } }
-        .command-input { background: none; border: none; color: #00ff88; font-family: 'Courier New', monospace; font-size: 1em; outline: none; width: 80%; }
-        .command-menu { margin-top: 30px; padding: 20px; border: 1px solid #00ff8844; background: rgba(0,255,136,0.05);}
-        .command-item { padding: 10px; margin: 5px 0; cursor: pointer; transition: all 0.3s; border-left: 3px solid transparent;}
-        .command-item:hover { background: rgba(0,255,136,0.1); border-left-color: #00ff88; transform: translateX(10px);}
-        .skill-bar { margin: 10px 0; }
-        .skill-progress { height: 20px; background: rgba(0,255,136,0.2); border: 1px solid #00ff88; position: relative; overflow: hidden; }
-        .skill-fill { height: 100%; background: linear-gradient(90deg, #00ff88, #00ffcc); box-shadow: 0 0 10px #00ff88; transition: width 2s ease; }
-        .project-box { margin: 15px 0; padding: 20px; border: 1px solid #00ff8866; background: rgba(0,255,136,0.05); transition: all 0.3s; cursor: pointer;}
-        .project-box:hover { border-color: #00ff88; background: rgba(0,255,136,0.1); box-shadow: 0 0 15px rgba(0,255,136,0.3);}
-        .loading-bar { width: 100%; height: 4px; background: #1a1a1a; position: relative; overflow: hidden; margin: 10px 0;}
-        .loading-progress { height: 100%; background: linear-gradient(90deg, #00ff88, #00ffcc, #00ff88); background-size: 200% 100%; animation: loading 2s linear infinite; width: 100%; }
-        @keyframes loading { 0% {background-position:200% 0;} 100%{background-position:-200% 0;} }
-        .matrix-bg { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; opacity: 0.1;}
-        .status-indicator { display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: #00ff88; box-shadow: 0 0 5px #00ff88; animation: pulse 2s infinite; }
-        @keyframes pulse { 0%,100%{opacity:1;} 50%{opacity:0.3;} }
-        .glitch-text { animation: glitchText 3s infinite; }
-        @keyframes glitchText {0%,90%,100%{transform:translate(0);}92%{transform:translate(-2px,2px);}94%{transform:translate(2px,-2px);}}
-        .profile-image { max-width: 100%; border: 2px solid #00ff88; box-shadow: 0 0 20px rgba(0,255,136,0.3); margin: 20px 0; }
-        .experience-block { margin: 15px 0; padding: 15px; border-left: 3px solid #00ff88; background: rgba(0,255,136,0.05);}
-        @media (max-width:768px) {
-            .terminal-container { padding: 10px; }
-            .terminal-body { padding: 15px; }
-        }
-        .shortcut-footer {
-            margin-top: 22px;
-            padding: 10px;
-            background: rgba(0,255,136,0.05);
-            border: 1px solid #00ff8844;
-            color: #00ffcc;
+
+        .terminal-title {
+            margin-left: 10px;
             font-size: 0.9em;
-            text-align: center;
-            letter-spacing: 0.2em;
+            opacity: 0.7;
+        }
+
+        .terminal-body {
+            background: rgba(10, 10, 10, 0.95);
+            border: 2px solid #00ff88;
+            padding: 30px;
+            min-height: 600px;
+            box-shadow: 0 0 30px rgba(0, 255, 136, 0.3);
+            backdrop-filter: blur(10px);
+        }
+
+        .terminal-output {
+            margin-bottom: 20px;
+        }
+
+        .terminal-line {
+            margin: 5px 0;
+            opacity: 0;
+            animation: fadeInText 0.1s forwards;
+        }
+
+        @keyframes fadeInText {
+            to { opacity: 1; }
+        }
+
+        .prompt {
+            color: #00ffcc;
+            text-shadow: 0 0 5px #00ffcc;
+        }
+
+        .success {
+            color: #00ff88;
+        }
+
+        .warning {
+            color: #ffaa00;
+        }
+
+        .error {
+            color: #ff4444;
+        }
+
+        .info {
+            color: #00ccff;
+        }
+
+        .gold {
+            color: #ffd700;
+        }
+
+        .typing-cursor {
+            display: inline-block;
+            width: 10px;
+            height: 18px;
+            background: #00ff88;
+            animation: blink 1s infinite;
+            vertical-align: middle;
+        }
+
+        @keyframes blink {
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0; }
+        }
+
+        .command-input {
+            background: none;
+            border: none;
+            color: #00ff88;
+            font-family: 'Courier New', monospace;
+            font-size: 1em;
+            outline: none;
+            width: 80%;
+        }
+
+        .command-menu {
+            margin-top: 30px;
+            padding: 20px;
+            border: 1px solid #00ff8844;
+            background: rgba(0, 255, 136, 0.05);
+        }
+
+        .command-item {
+            padding: 10px;
+            margin: 5px 0;
+            cursor: pointer;
+            transition: all 0.3s;
+            border-left: 3px solid transparent;
+        }
+
+        .command-item:hover {
+            background: rgba(0, 255, 136, 0.1);
+            border-left-color: #00ff88;
+            transform: translateX(10px);
+        }
+
+        .skill-bar {
+            margin: 10px 0;
+        }
+
+        .skill-progress {
+            height: 20px;
+            background: rgba(0, 255, 136, 0.2);
+            border: 1px solid #00ff88;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .skill-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #00ff88, #00ffcc);
+            box-shadow: 0 0 10px #00ff88;
+            transition: width 2s ease;
+        }
+
+        .project-box {
+            margin: 15px 0;
+            padding: 20px;
+            border: 1px solid #00ff8866;
+            background: rgba(0, 255, 136, 0.05);
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .project-box:hover {
+            border-color: #00ff88;
+            background: rgba(0, 255, 136, 0.1);
+            box-shadow: 0 0 15px rgba(0, 255, 136, 0.3);
+        }
+
+        .loading-bar {
+            width: 100%;
+            height: 4px;
+            background: #1a1a1a;
+            position: relative;
+            overflow: hidden;
+            margin: 10px 0;
+        }
+
+        .loading-progress {
+            height: 100%;
+            background: linear-gradient(90deg, #00ff88, #00ffcc, #00ff88);
+            background-size: 200% 100%;
+            animation: loading 2s linear infinite;
+            width: 100%;
+        }
+
+        @keyframes loading {
+            0% { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
+        }
+
+        .matrix-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            opacity: 0.1;
+        }
+
+        .status-indicator {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #00ff88;
+            box-shadow: 0 0 5px #00ff88;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
+        }
+
+        .glitch-text {
+            animation: glitchText 3s infinite;
+        }
+
+        @keyframes glitchText {
+            0%, 90%, 100% { transform: translate(0); }
+            92% { transform: translate(-2px, 2px); }
+            94% { transform: translate(2px, -2px); }
+        }
+
+        .profile-image {
+            max-width: 100%;
+            border: 2px solid #00ff88;
+            box-shadow: 0 0 20px rgba(0, 255, 136, 0.3);
+            margin: 20px 0;
+        }
+
+        .experience-block {
+            margin: 15px 0;
+            padding: 15px;
+            border-left: 3px solid #00ff88;
+            background: rgba(0, 255, 136, 0.05);
+        }
+
+        @media (max-width: 768px) {
+            .terminal-container {
+                padding: 10px;
+            }
+            
+            .terminal-body {
+                padding: 15px;
+            }
         }
     </style>
 </head>
@@ -86,6 +340,7 @@
     <div class="scanlines"></div>
     <div class="hero-banner"></div>
     <canvas class="matrix-bg" id="matrix"></canvas>
+    
     <div class="terminal-container">
         <div class="terminal-header">
             <span class="terminal-button btn-close"></span>
@@ -93,64 +348,91 @@
             <span class="terminal-button btn-maximize"></span>
             <span class="terminal-title">root@ANURAG_ACHANTA:~$</span>
         </div>
+        
         <div class="terminal-body">
             <div id="terminal-output" class="terminal-output"></div>
             <div id="input-line" style="display: none;">
                 <span class="prompt">cyber@achanta:~$ </span>
                 <input type="text" class="command-input" id="command-input" autocomplete="off" spellcheck="false">
             </div>
+            
             <div id="command-menu" class="command-menu" style="display: none;">
                 <div style="margin-bottom: 15px; color: #00ffcc; font-weight: bold;">
                     === AVAILABLE COMMANDS ===
                 </div>
-                <div class="command-item" onclick="executeCommand('about')"><span class="success">▶</span> about - Display system information</div>
-                <div class="command-item" onclick="executeCommand('experience')"><span class="success">▶</span> experience - Professional background</div>
-                <div class="command-item" onclick="executeCommand('skills')"><span class="success">▶</span> skills - Technical capabilities</div>
-                <div class="command-item" onclick="executeCommand('projects')"><span class="success">▶</span> projects - Key security projects</div>
-                <div class="command-item" onclick="executeCommand('education')"><span class="success">▶</span> education - Academic credentials</div>
-                <div class="command-item" onclick="executeCommand('certs')"><span class="success">▶</span> certs - Certifications</div>
-                <div class="command-item" onclick="executeCommand('contact')"><span class="success">▶</span> contact - Contact information</div>
-                <div class="command-item" onclick="executeCommand('clear')"><span class="success">▶</span> clear - Clear terminal</div>
-                <div class="command-item" onclick="executeCommand('scan')"><span class="warning">▶</span> scan - Run security scan simulation</div>
-            </div>
-            <div class="shortcut-footer" id="shortcut-footer">
-                [A] about | [E] experience | [S] skills | [P] projects | [D] education | [C] certs | [O] contact | [X] clear | [Z] scan | [H] help
+                <div class="command-item" onclick="executeCommand('about')">
+                    <span class="success">▶</span> about - Display system information
+                </div>
+                <div class="command-item" onclick="executeCommand('experience')">
+                    <span class="success">▶</span> experience - Professional background
+                </div>
+                <div class="command-item" onclick="executeCommand('skills')">
+                    <span class="success">▶</span> skills - Technical capabilities
+                </div>
+                <div class="command-item" onclick="executeCommand('projects')">
+                    <span class="success">▶</span> projects - Key security projects
+                </div>
+                <div class="command-item" onclick="executeCommand('education')">
+                    <span class="success">▶</span> education - Academic credentials
+                </div>
+                <div class="command-item" onclick="executeCommand('certs')">
+                    <span class="success">▶</span> certs - Certifications
+                </div>
+                <div class="command-item" onclick="executeCommand('contact')">
+                    <span class="success">▶</span> contact - Contact information
+                </div>
+                <div class="command-item" onclick="executeCommand('clear')">
+                    <span class="success">▶</span> clear - Clear terminal
+                </div>
+                <div class="command-item" onclick="executeCommand('scan')">
+                    <span class="warning">▶</span> scan - Run security scan simulation
+                </div>
             </div>
         </div>
     </div>
+
     <script>
-        // Matrix bg animation
         const canvas = document.getElementById('matrix');
         const ctx = canvas.getContext('2d');
+
         canvas.width = window.innerWidth;
         canvas.height = window.innerHeight;
+
         const chars = '01アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン';
         const fontSize = 14;
         const columns = canvas.width / fontSize;
         const drops = Array(Math.floor(columns)).fill(1);
+
         function drawMatrix() {
             ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
             ctx.fillRect(0, 0, canvas.width, canvas.height);
+            
             ctx.fillStyle = '#00ff88';
             ctx.font = fontSize + 'px monospace';
+
             for (let i = 0; i < drops.length; i++) {
                 const text = chars[Math.floor(Math.random() * chars.length)];
                 ctx.fillText(text, i * fontSize, drops[i] * fontSize);
-                if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) drops[i] = 0;
+                
+                if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+                    drops[i] = 0;
+                }
                 drops[i]++;
             }
         }
+
         setInterval(drawMatrix, 35);
+
         window.addEventListener('resize', () => {
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
         });
 
-        // Terminal logic
         const output = document.getElementById('terminal-output');
         const inputLine = document.getElementById('input-line');
         const commandInput = document.getElementById('command-input');
         const commandMenu = document.getElementById('command-menu');
+
         let commandHistory = [];
         let historyIndex = -1;
 
@@ -163,28 +445,35 @@
                 output.scrollTop = output.scrollHeight;
             }, delay);
         }
+
         function showLoadingBar(duration) {
             const loadingDiv = document.createElement('div');
             loadingDiv.innerHTML = '<div class="loading-bar"><div class="loading-progress"></div></div>';
             output.appendChild(loadingDiv);
             setTimeout(() => loadingDiv.remove(), duration);
         }
+
         function initializeTerminal() {
             addLine('<span class="info">╔═══════════════════════════════════════════════════════════╗</span>');
             addLine('<span class="info">║         ANURAG ACHANTA CYBER TERMINAL v3.1.4             ║</span>');
             addLine('<span class="info">║            SECURITY DEPLOYMENT SYSTEM ONLINE              ║</span>');
             addLine('<span class="info">╚═══════════════════════════════════════════════════════════╝</span>');
             addLine('');
+            
             showLoadingBar(2000);
+            
             setTimeout(() => {
                 addLine('[<span class="success">✓</span>] Initializing secure connection...', 'success');
             }, 500);
+            
             setTimeout(() => {
                 addLine('[<span class="success">✓</span>] Loading RUDRA defense protocols...', 'success');
             }, 1000);
+            
             setTimeout(() => {
                 addLine('[<span class="success">✓</span>] Establishing quantum tunnel...', 'success');
             }, 1500);
+            
             setTimeout(() => {
                 addLine('[<span class="success">✓</span>] Multi-cloud security mesh active. <span class="status-indicator"></span>', 'success');
                 addLine('');
@@ -201,11 +490,13 @@
 
         function executeCommand(cmd) {
             cmd = cmd.trim().toLowerCase();
+            
             if (cmd) {
                 addLine(`<span class="prompt">cyber@achanta:~$</span> ${cmd}`);
                 commandHistory.unshift(cmd);
                 historyIndex = -1;
             }
+
             switch(cmd) {
                 case 'help':
                     addLine('');
@@ -255,6 +546,7 @@
                     addLine('<span class="info">════════ PROFESSIONAL EXPERIENCE ════════</span>');
                     addLine('');
                     showLoadingBar(1500);
+                    
                     setTimeout(() => {
                         const exp = document.createElement('div');
                         exp.className = 'experience-block';
@@ -279,6 +571,7 @@
                         `;
                         output.appendChild(exp);
                         output.scrollTop = output.scrollHeight;
+                        
                         setTimeout(() => {
                             const exp2 = document.createElement('div');
                             exp2.className = 'experience-block';
@@ -303,6 +596,7 @@
                             output.appendChild(exp2);
                             output.scrollTop = output.scrollHeight;
                         }, 500);
+                        
                         setTimeout(() => addLine(''), 1000);
                     }, 1500);
                     break;
@@ -312,6 +606,7 @@
                     addLine('<span class="info">════════ TECHNICAL CAPABILITIES ════════</span>');
                     addLine('');
                     showLoadingBar(1500);
+                    
                     setTimeout(() => {
                         const skills = [
                             { name: 'Penetration Testing & Threat Hunting', level: 95 },
@@ -323,6 +618,7 @@
                             { name: 'DevSecOps & Secure SDLC', level: 87 },
                             { name: 'Digital Forensics & Incident Response', level: 89 }
                         ];
+
                         skills.forEach((skill, index) => {
                             setTimeout(() => {
                                 const bar = document.createElement('div');
@@ -337,12 +633,15 @@
                                     </div>
                                 `;
                                 output.appendChild(bar);
+                                
                                 setTimeout(() => {
                                     bar.querySelector('.skill-fill').style.width = skill.level + '%';
                                 }, 100);
+                                
                                 output.scrollTop = output.scrollHeight;
                             }, index * 250);
                         });
+                        
                         setTimeout(() => {
                             addLine('');
                             addLine('<span class="info">FRAMEWORKS & STANDARDS:</span>');
@@ -361,6 +660,7 @@
                     addLine('<span class="info">════════ KEY SECURITY PROJECTS ════════</span>');
                     addLine('');
                     showLoadingBar(1000);
+                    
                     setTimeout(() => {
                         const projects = [
                             {
@@ -388,6 +688,7 @@
                                 tags: 'LoRa | Biometrics | Encryption | Embedded Systems'
                             }
                         ];
+
                         projects.forEach((project, index) => {
                             setTimeout(() => {
                                 const box = document.createElement('div');
@@ -410,6 +711,7 @@
                                 output.scrollTop = output.scrollHeight;
                             }, index * 400);
                         });
+                        
                         setTimeout(() => addLine(''), projects.length * 400 + 500);
                     }, 1000);
                     break;
@@ -419,22 +721,13 @@
                     addLine('<span class="info">════════ ACADEMIC CREDENTIALS ════════</span>');
                     addLine('');
                     showLoadingBar(1000);
+                    
                     setTimeout(() => {
                         addLine('<span class="gold">╔════════════════════════════════════════════════════╗</span>');
                         addLine('<span class="gold">║  Master of Science (MS)                           ║</span>');
                         addLine('<span class="gold">║  Computer Information Science & Engineering       ║</span>');
                         addLine('<span class="gold">╚════════════════════════════════════════════════════╝</span>');
-                        addLine('<span class="success">INSTITUTION:</span> University of Florida');
-                        addLine('<span class="success">LOCATION:</span> Gainesville, FL, USA');
-                        addLine('<span class="success">PERIOD:</span> 2025 – 2027');
-                        addLine('');
-                        addLine('<span class="info">────────────────────────────────────────────</span>');
-                        addLine('');
-                        addLine('<span class="gold">╔════════════════════════════════════════════════════╗</span>');
-                        addLine('<span class="gold">║  Bachelor of Technology (B.Tech)                  ║</span>');
-                        addLine('<span class="gold">║  Computer Science & Engineering                   ║</span>');
-                        addLine('<span class="gold">╚════════════════════════════════════════════════════╝</span>');
-                        addLine('<span class="success">INSTITUTION:</span> Vidya Bharathi Institute of Technology (VBIT)');
+                        addLine('<span class="success">INSTITUTION:</span> Jawaharlal Nehru Technological University');
                         addLine('<span class="success">LOCATION:</span> Hyderabad, India');
                         addLine('<span class="success">PERIOD:</span> 2017 – 2021');
                         addLine('');
@@ -443,101 +736,103 @@
 
                 case 'certs':
                     addLine('');
-                    addLine('<span class="info">════════ CERTIFICATIONS ════════</span>');
+                    addLine('<span class="info">════════ CERTIFICATIONS & CREDENTIALS ════════</span>');
                     addLine('');
-                    showLoadingBar(1200);
+                    showLoadingBar(1000);
+                    
                     setTimeout(() => {
-                        addLine('• Certified Ethical Hacker (CEH) v11 - Pursuing');
-                        addLine('• Comptia Security+ - Pursuing');
-                        addLine('• Google Cloud Practitioner');
-                        addLine('• Google IT Professional');
-                        addLine('• CCNA');
+                        addLine('<span class="warning">⚡ IN PROGRESS:</span>');
+                        addLine('[<span class="warning">~</span>] CompTIA Security+', 'warning', 0);
+                        addLine('[<span class="warning">~</span>] Google Professional Cloud Security Engineer', 'warning', 200);
                         addLine('');
-                    }, 1200);
+                        addLine('<span class="success">✓ COMPLETED:</span>');
+                        addLine('[<span class="success">✓</span>] Google Cloud Practitioner', 'success', 400);
+                        addLine('[<span class="success">✓</span>] Google IT Support Professional', 'success', 600);
+                        addLine('[<span class="success">✓</span>] Cisco Certified Network Analyst', 'success', 800);
+                        addLine('[<span class="success">✓</span>] Cybersecurity Analyst Simulation – Tata Group', 'success', 1000);
+                        addLine('', '', 1200);
+                    }, 1000);
                     break;
 
                 case 'contact':
                     addLine('');
-                    addLine('<span class="info">════════ CONTACT ════════</span>');
+                    addLine('<span class="info">════════ CONTACT INFORMATION ════════</span>');
                     addLine('');
-                    showLoadingBar(800);
-                    setTimeout(() => {
-                        addLine('<span class="success">EMAIL:</span> anurag.achanta@email.com');
-                        addLine('<span class="success">LINKEDIN:</span> linkedin.com/in/anuragachanta');
-                        addLine('<span class="success">GITHUB:</span> github.com/anuragachanta');
-                        addLine('<span class="success">LOCATION:</span> Gainesville, FL, USA');
-                        addLine('');
-                    }, 800);
+                    addLine('<span class="success">EMAIL:</span> anuragachanta8197@gmail.com');
+                    addLine('<span class="success">PHONE:</span> +1-762-416-0460');
+                    addLine('<span class="success">LINKEDIN:</span> linkedin.com/in/anuragachanta');
+                    addLine('<span class="success">GITHUB:</span> github.com/kingsandkinsneverfade');
+                    addLine('<span class="success">LOCATION:</span> Gainesville, Florida, USA');
+                    addLine('');
+                    addLine('<span class="warning">SECURE CHANNELS AVAILABLE | PGP ENCRYPTION SUPPORTED</span>');
+                    addLine('');
+                    break;
+
+                case 'scan':
+                    addLine('');
+                    addLine('<span class="warning">[!] Initiating RUDRA security scan protocol...</span>');
+                    addLine('');
+                    showLoadingBar(3500);
+                    
+                    setTimeout(() => addLine('[<span class="info">~</span>] Scanning multi-cloud infrastructure...', 'info'), 500);
+                    setTimeout(() => addLine('[<span class="info">~</span>] Analyzing network topology and open ports...', 'info'), 1000);
+                    setTimeout(() => addLine('[<span class="info">~</span>] Testing firewall rules and IDS/IPS effectiveness...', 'info'), 1500);
+                    setTimeout(() => addLine('[<span class="info">~</span>] Running AI-based threat detection algorithms...', 'info'), 2000);
+                    setTimeout(() => addLine('[<span class="warning">!</span>] Simulated vulnerability detected: CVE-2024-DEMO-001', 'warning'), 2500);
+                    setTimeout(() => addLine('[<span class="info">~</span>] Deploying automated remediation procedures...', 'info'), 3000);
+                    setTimeout(() => addLine('[<span class="success">✓</span>] SCAN COMPLETE - All systems secured', 'success'), 3800);
+                    setTimeout(() => addLine('[<span class="success">✓</span>] Threat detection efficiency: +40% (RUDRA AI active)', 'success'), 4200);
+                    setTimeout(() => addLine('[<span class="info">i</span>] Detailed report: security_audit_' + Date.now() + '.pdf', 'info'), 4600);
+                    setTimeout(() => addLine(''), 5000);
                     break;
 
                 case 'clear':
                     output.innerHTML = '';
                     break;
 
-                case 'scan':
+                case 'whoami':
                     addLine('');
-                    addLine('<span class="warning">[!] Running security scan...</span>');
-                    showLoadingBar(3000);
-                    setTimeout(() => {
-                        addLine('[<span class="success">✓</span>] Ports Scanned: 65535');
-                        addLine('[<span class="success">✓</span>] No vulnerabilities detected');
-                        addLine('[<span class="success">✓</span>] IDS systems online');
-                        addLine('[<span class="success">✓</span>] Security mesh stable');
-                        addLine('<span class="info">System is secure.</span>');
-                        addLine('');
-                    }, 3000);
+                    addLine('<span class="gold">ANURAG ACHANTA</span>');
+                    addLine('<span class="success">Cybersecurity Engineer | Security Deployment Lead</span>');
+                    addLine('<span class="info">Leading Cybersecurity Innovations | Research | Automation | Integrations</span>');
+                    addLine('');
+                    break;
+
+                case '':
                     break;
 
                 default:
-                    if (cmd) {
-                        addLine(`<span class="error">Command not found:</span> ${cmd}. Type <span class="warning">help</span> for options.`);
-                    }
+                    addLine(`<span class="error">Command not found: ${cmd}</span>`);
+                    addLine('Type "help" for available commands');
+                    addLine('');
             }
+
+            commandInput.value = '';
         }
 
         commandInput.addEventListener('keydown', (e) => {
             if (e.key === 'Enter') {
-                const cmd = commandInput.value;
-                executeCommand(cmd);
-                commandInput.value = '';
+                executeCommand(commandInput.value);
             } else if (e.key === 'ArrowUp') {
-                if (commandHistory.length > 0) {
-                    historyIndex = (historyIndex + 1) % commandHistory.length;
+                e.preventDefault();
+                if (historyIndex < commandHistory.length - 1) {
+                    historyIndex++;
                     commandInput.value = commandHistory[historyIndex];
                 }
             } else if (e.key === 'ArrowDown') {
-                if (commandHistory.length > 0) {
-                    historyIndex = historyIndex - 1;
-                    if (historyIndex < 0) historyIndex = commandHistory.length - 1;
+                e.preventDefault();
+                if (historyIndex > 0) {
+                    historyIndex--;
                     commandInput.value = commandHistory[historyIndex];
+                } else if (historyIndex === 0) {
+                    historyIndex = -1;
+                    commandInput.value = '';
                 }
             }
         });
 
-        // Keyboard shortcuts mapping
-        const shortcutMap = {
-            a: 'about',
-            e: 'experience',
-            s: 'skills',
-            p: 'projects',
-            d: 'education',
-            c: 'certs',
-            o: 'contact',
-            x: 'clear',
-            z: 'scan',
-            h: 'help'
-        };
-        document.addEventListener('keydown', (e) => {
-            if (document.activeElement === commandInput) return;
-            const key = e.key.toLowerCase();
-            if (shortcutMap[key]) {
-                executeCommand(shortcutMap[key]);
-            }
-        });
-
-        window.onload = () => {
-            initializeTerminal();
-        };
+        initializeTerminal();
     </script>
 </body>
 </html>
+</span>
