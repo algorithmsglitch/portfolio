@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ANURAG ACHANTA | CYBER_TERMINAL</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Courier New', monospace; background: #000; color: #00ff88; overflow-x: hidden; }
+        .hero-banner { position: fixed; top: 0; left: 0; width: 100%; height: 100vh; z-index: 0; opacity: 0.15;
+            background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080"><rect fill="%23000"/></svg>');
+            background-size: cover; background-position: center; filter: brightness(0.6) contrast(1.2);
+        }
+        .scanlines { position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(rgba(18,16,16,0) 50%, rgba(0,0,0,0.25) 50%); background-size: 100% 4px;
+            z-index: 9999; pointer-events: none; animation: scanline 8s linear infinite;
+        }
+        @keyframes scanline {0% {background-position:0 0;}100%{background-position:0 100%;}}
+        .crt::before { content: " "; display: block; position: fixed; top: 0; left: 0; bottom: 0; right: 0;
+            background: rgba(18,16,16,0.1); opacity: 0; z-index: 9998; pointer-events: none; animation: flicker 0.15s infinite;}
+        @keyframes flicker {0%{opacity:0.27861;}5%{opacity:0.34769;}10%{opacity:0.23604;}15%{opacity:0.90626;}20%{opacity:0.18128;}
+            25%{opacity:0.83891;}30%{opacity:0.65583;}35%{opacity:0.67807;}40%{opacity:0.26559;}45%{opacity:0.84693;}
+            50%{opacity:0.96019;}55%{opacity:0.08594;}60%{opacity:0.20313;}65%{opacity:0.71988;}70%{opacity:0.53455;}
+            75%{opacity:0.37288;}80%{opacity:0.71428;}85%{opacity:0.70419;}90%{opacity:0.7003;}95%{opacity:0.36108;}
+            100%{opacity:0.24387;}
+        }
+        .terminal-container { max-width: 1200px; margin: 20px auto; padding: 20px; position: relative; z-index: 1; }
+        .terminal-header { background: #1a1a1a; border: 2px solid #00ff88; border-bottom: none; padding: 10px 20px;
+            display: flex; align-items: center; gap: 10px;
+        }
+        .terminal-button { width: 12px; height: 12px; border-radius: 50%; display: inline-block; }
+        .btn-close { background: #ff5f56; }
+        .btn-minimize { background: #ffbd2e; }
+        .btn-maximize { background: #27c93f; }
+        .terminal-title { margin-left: 10px; font-size: 0.9em; opacity: 0.7; }
+        .terminal-body { background: rgba(10,10,10,0.95); border: 2px solid #00ff88; padding: 30px; min-height: 600px;
+            box-shadow: 0 0 30px rgba(0,255,136,0.3); backdrop-filter: blur(10px);
+        }
+        .terminal-output { margin-bottom: 20px; }
+        .terminal-line { margin: 5px 0; opacity: 0; animation: fadeInText 0.1s forwards; }
+        @keyframes fadeInText { to { opacity: 1; } }
+        .prompt { color: #00ffcc; text-shadow: 0 0 5px #00ffcc; }
+        .success { color: #00ff88; }
+        .warning { color: #ffaa00; }
+        .error { color: #ff4444; }
+        .info { color: #00ccff; }
+        .gold { color: #ffd700; }
+        .typing-cursor { display: inline-block; width: 10px; height: 18px; background: #00ff88; animation: blink 1s infinite; vertical-align: middle;}
+        @keyframes blink { 0%,50% { opacity: 1; } 51%,100% { opacity: 0; } }
+        .command-input { background: none; border: none; color: #00ff88; font-family: 'Courier New', monospace; font-size: 1em; outline: none; width: 80%; }
+        .command-menu { margin-top: 30px; padding: 20px; border: 1px solid #00ff8844; background: rgba(0,255,136,0.05);}
+        .command-item { padding: 10px; margin: 5px 0; cursor: pointer; transition: all 0.3s; border-left: 3px solid transparent;}
+        .command-item:hover { background: rgba(0,255,136,0.1); border-left-color: #00ff88; transform: translateX(10px);}
+        .skill-bar { margin: 10px 0; }
+        .skill-progress { height: 20px; background: rgba(0,255,136,0.2); border: 1px solid #00ff88; position: relative; overflow: hidden; }
+        .skill-fill { height: 100%; background: linear-gradient(90deg, #00ff88, #00ffcc); box-shadow: 0 0 10px #00ff88; transition: width 2s ease; }
+        .project-box { margin: 15px 0; padding: 20px; border: 1px solid #00ff8866; background: rgba(0,255,136,0.05); transition: all 0.3s; cursor: pointer;}
+        .project-box:hover { border-color: #00ff88; background: rgba(0,255,136,0.1); box-shadow: 0 0 15px rgba(0,255,136,0.3);}
+        .loading-bar { width: 100%; height: 4px; background: #1a1a1a; position: relative; overflow: hidden; margin: 10px 0;}
+        .loading-progress { height: 100%; background: linear-gradient(90deg, #00ff88, #00ffcc, #00ff88); background-size: 200% 100%; animation: loading 2s linear infinite; width: 100%; }
+        @keyframes loading { 0% {background-position:200% 0;} 100%{background-position:-200% 0;} }
+        .matrix-bg { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; opacity: 0.1;}
+        .status-indicator { display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: #00ff88; box-shadow: 0 0 5px #00ff88; animation: pulse 2s infinite; }
+        @keyframes pulse { 0%,100%{opacity:1;} 50%{opacity:0.3;} }
+        .glitch-text { animation: glitchText 3s infinite; }
+        @keyframes glitchText {0%,90%,100%{transform:translate(0);}92%{transform:translate(-2px,2px);}94%{transform:translate(2px,-2px);}}
+        .profile-image { max-width: 100%; border: 2px solid #00ff88; box-shadow: 0 0 20px rgba(0,255,136,0.3); margin: 20px 0; }
+        .experience-block { margin: 15px 0; padding: 15px; border-left: 3px solid #00ff88; background: rgba(0,255,136,0.05);}
+        @media (max-width:768px) {
+            .terminal-container { padding: 10px; }
+            .terminal-body { padding: 15px; }
+        }
+        .shortcut-footer {
+            margin-top: 22px;
+            padding: 10px;
+            background: rgba(0,255,136,0.05);
+            border: 1px solid #00ff8844;
+            color: #00ffcc;
+            font-size: 0.9em;
+            text-align: center;
+            letter-spacing: 0.2em;
+        }
+    </style>
+</head>
+<body class="crt">
+    <div class="scanlines"></div>
+    <div class="hero-banner"></div>
+    <canvas class="matrix-bg" id="matrix"></canvas>
+    <div class="terminal-container">
+        <div class="terminal-header">
+            <span class="terminal-button btn-close"></span>
+            <span class="terminal-button btn-minimize"></span>
+            <span class="terminal-button btn-maximize"></span>
+            <span class="terminal-title">root@ANURAG_ACHANTA:~$</span>
+        </div>
+        <div class="terminal-body">
+            <div id="terminal-output" class="terminal-output"></div>
+            <div id="input-line" style="display: none;">
+                <span class="prompt">cyber@achanta:~$ </span>
+                <input type="text" class="command-input" id="command-input" autocomplete="off" spellcheck="false">
+            </div>
+            <div id="command-menu" class="command-menu" style="display: none;">
+                <div style="margin-bottom: 15px; color: #00ffcc; font-weight: bold;">
+                    === AVAILABLE COMMANDS ===
+                </div>
+                <div class="command-item" onclick="executeCommand('about')"><span class="success">▶</span> about - Display system information</div>
+                <div class="command-item" onclick="executeCommand('experience')"><span class="success">▶</span> experience - Professional background</div>
+                <div class="command-item" onclick="executeCommand('skills')"><span class="success">▶</span> skills - Technical capabilities</div>
+                <div class="command-item" onclick="executeCommand('projects')"><span class="success">▶</span> projects - Key security projects</div>
+                <div class="command-item" onclick="executeCommand('education')"><span class="success">▶</span> education - Academic credentials</div>
+                <div class="command-item" onclick="executeCommand('certs')"><span class="success">▶</span> certs - Certifications</div>
+                <div class="command-item" onclick="executeCommand('contact')"><span class="success">▶</span> contact - Contact information</div>
+                <div class="command-item" onclick="executeCommand('clear')"><span class="success">▶</span> clear - Clear terminal</div>
+                <div class="command-item" onclick="executeCommand('scan')"><span class="warning">▶</span> scan - Run security scan simulation</div>
+            </div>
+            <div class="shortcut-footer" id="shortcut-footer">
+                [A] about | [E] experience | [S] skills | [P] projects | [D] education | [C] certs | [O] contact | [X] clear | [Z] scan | [H] help
+            </div>
+        </div>
+    </div>
+    <script>
+        // Matrix bg animation
+        const canvas = document.getElementById('matrix');
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        const chars = '01アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン';
+        const fontSize = 14;
+        const columns = canvas.width / fontSize;
+        const drops = Array(Math.floor(columns)).fill(1);
+        function drawMatrix() {
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            ctx.fillStyle = '#00ff88';
+            ctx.font = fontSize + 'px monospace';
+            for (let i = 0; i < drops.length; i++) {
+                const text = chars[Math.floor(Math.random() * chars.length)];
+                ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+                if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) drops[i] = 0;
+                drops[i]++;
+            }
+        }
+        setInterval(drawMatrix, 35);
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
+
+        // Terminal logic
+        const output = document.getElementById('terminal-output');
+        const inputLine = document.getElementById('input-line');
+        const commandInput = document.getElementById('command-input');
+        const commandMenu = document.getElementById('command-menu');
+        let commandHistory = [];
+        let historyIndex = -1;
+
+        function addLine(text, className = '', delay = 0) {
+            setTimeout(() => {
+                const line = document.createElement('div');
+                line.className = `terminal-line ${className}`;
+                line.innerHTML = text;
+                output.appendChild(line);
+                output.scrollTop = output.scrollHeight;
+            }, delay);
+        }
+        function showLoadingBar(duration) {
+            const loadingDiv = document.createElement('div');
+            loadingDiv.innerHTML = '<div class="loading-bar"><div class="loading-progress"></div></div>';
+            output.appendChild(loadingDiv);
+            setTimeout(() => loadingDiv.remove(), duration);
+        }
+        function initializeTerminal() {
+            addLine('<span class="info">╔═══════════════════════════════════════════════════════════╗</span>');
+            addLine('<span class="info">║         ANURAG ACHANTA CYBER TERMINAL v3.1.4             ║</span>');
+            addLine('<span class="info">║            SECURITY DEPLOYMENT SYSTEM ONLINE              ║</span>');
+            addLine('<span class="info">╚═══════════════════════════════════════════════════════════╝</span>');
+            addLine('');
+            showLoadingBar(2000);
+            setTimeout(() => {
+                addLine('[<span class="success">✓</span>] Initializing secure connection...', 'success');
+            }, 500);
+            setTimeout(() => {
+                addLine('[<span class="success">✓</span>] Loading RUDRA defense protocols...', 'success');
+            }, 1000);
+            setTimeout(() => {
+                addLine('[<span class="success">✓</span>] Establishing quantum tunnel...', 'success');
+            }, 1500);
+            setTimeout(() => {
+                addLine('[<span class="success">✓</span>] Multi-cloud security mesh active. <span class="status-indicator"></span>', 'success');
+                addLine('');
+                addLine('<span class="gold">ANURAG ACHANTA | Cybersecurity Engineer</span>');
+                addLine('<span class="info">University of Florida | MS in Computer & Information Science</span>');
+                addLine('');
+                addLine('<span class="warning">Type "help" to see available commands or click below:</span>');
+                addLine('');
+                commandMenu.style.display = 'block';
+                inputLine.style.display = 'block';
+                commandInput.focus();
+            }, 2500);
+        }
+
+        function executeCommand(cmd) {
+            cmd = cmd.trim().toLowerCase();
+            if (cmd) {
+                addLine(`<span class="prompt">cyber@achanta:~$</span> ${cmd}`);
+                commandHistory.unshift(cmd);
+                historyIndex = -1;
+            }
+            switch(cmd) {
+                case 'help':
+                    addLine('');
+                    addLine('<span class="info">Available Commands:</span>');
+                    addLine('  <span class="success">about</span>        - Display system information');
+                    addLine('  <span class="success">experience</span>   - Professional background');
+                    addLine('  <span class="success">skills</span>       - Technical capabilities');
+                    addLine('  <span class="success">projects</span>     - Key security projects');
+                    addLine('  <span class="success">education</span>    - Academic credentials');
+                    addLine('  <span class="success">certs</span>        - Certifications');
+                    addLine('  <span class="success">contact</span>      - Contact information');
+                    addLine('  <span class="success">clear</span>        - Clear terminal');
+                    addLine('  <span class="warning">scan</span>         - Run security scan');
+                    addLine('');
+                    break;
+
+                case 'about':
+                    addLine('');
+                    addLine('<span class="info">════════ SYSTEM PROFILE ════════</span>');
+                    addLine('');
+                    showLoadingBar(1000);
+                    setTimeout(() => {
+                        addLine('<span class="gold">╔══════════════════════════════════════════════╗</span>');
+                        addLine('<span class="gold">║         ANURAG ACHANTA                       ║</span>');
+                        addLine('<span class="gold">║    CYBERSECURITY ENGINEER                    ║</span>');
+                        addLine('<span class="gold">╚══════════════════════════════════════════════╝</span>');
+                        addLine('');
+                        addLine('<span class="success">DESIGNATION:</span> Security Deployment Lead');
+                        addLine('<span class="success">EXPERIENCE:</span> 3+ Years in Cybersecurity Engineering');
+                        addLine('<span class="success">CURRENT:</span> MS Student at University of Florida');
+                        addLine('');
+                        addLine('<span class="info">EXPERTISE:</span>');
+                        addLine('├─ Risk Assessment & Compliance Management');
+                        addLine('├─ Penetration Testing & Threat Hunting');
+                        addLine('├─ Secure Cloud Architecture (AWS, Azure, GCP)');
+                        addLine('├─ Python Automation & DevSecOps');
+                        addLine('└─ AI/ML-Driven Defense Systems');
+                        addLine('');
+                        addLine('<span class="warning">MISSION:</span> Delivering enterprise-grade security solutions');
+                        addLine('using NIST, ISO 27001, MITRE ATT&CK, and CIS Controls.');
+                        addLine('');
+                    }, 1000);
+                    break;
+
+                case 'experience':
+                    addLine('');
+                    addLine('<span class="info">════════ PROFESSIONAL EXPERIENCE ════════</span>');
+                    addLine('');
+                    showLoadingBar(1500);
+                    setTimeout(() => {
+                        const exp = document.createElement('div');
+                        exp.className = 'experience-block';
+                        exp.innerHTML = `
+                            <div style="color: #00ffcc; font-weight: bold; margin-bottom: 8px;">
+                                ▸ TATA CONSULTANCY SERVICES (TCS)
+                            </div>
+                            <div style="color: #00ff88; margin-bottom: 8px;">
+                                System Engineer — Security Deployment Lead
+                            </div>
+                            <div style="color: #ffaa00; margin-bottom: 12px; font-size: 0.9em;">
+                                May 2022 – Aug 2025
+                            </div>
+                            <div style="line-height: 1.8;">
+                                ✓ Led security deployments for Fortune 500 clients (J&J, GE, Eli Lilly)<br>
+                                ✓ Reduced compliance audit failures by 30%, zero breaches for 3 years<br>
+                                ✓ Performed risk assessments across 500+ systems, remediating 150+ gaps<br>
+                                ✓ Designed Python automation pipelines (AWS, Azure), boosting performance 35%<br>
+                                ✓ Directed 80+ engineers, mentored 300+ professionals in security ops<br>
+                                ✓ Enhanced security via PAM, VPN/firewall monitoring, compliance frameworks
+                            </div>
+                        `;
+                        output.appendChild(exp);
+                        output.scrollTop = output.scrollHeight;
+                        setTimeout(() => {
+                            const exp2 = document.createElement('div');
+                            exp2.className = 'experience-block';
+                            exp2.style.marginTop = '20px';
+                            exp2.innerHTML = `
+                                <div style="color: #00ffcc; font-weight: bold; margin-bottom: 8px;">
+                                    ▸ SHODH - VBIT INNOVATION CELL
+                                </div>
+                                <div style="color: #00ff88; margin-bottom: 8px;">
+                                    Founder / President
+                                </div>
+                                <div style="color: #ffaa00; margin-bottom: 12px; font-size: 0.9em;">
+                                    Jul 2019 – Sep 2021
+                                </div>
+                                <div style="line-height: 1.8;">
+                                    ✓ Founded innovation hub delivering 30+ R&D projects, 8 student startups<br>
+                                    ✓ Built nationwide network of 30+ "Under 30" innovators<br>
+                                    ✓ Spearheaded secure communication prototypes and AI-driven cybersecurity projects<br>
+                                    ✓ Recognized at national tech forums for innovation leadership
+                                </div>
+                            `;
+                            output.appendChild(exp2);
+                            output.scrollTop = output.scrollHeight;
+                        }, 500);
+                        setTimeout(() => addLine(''), 1000);
+                    }, 1500);
+                    break;
+
+                case 'skills':
+                    addLine('');
+                    addLine('<span class="info">════════ TECHNICAL CAPABILITIES ════════</span>');
+                    addLine('');
+                    showLoadingBar(1500);
+                    setTimeout(() => {
+                        const skills = [
+                            { name: 'Penetration Testing & Threat Hunting', level: 95 },
+                            { name: 'Risk Assessment & Compliance', level: 93 },
+                            { name: 'Cloud Security (AWS/Azure/GCP)', level: 90 },
+                            { name: 'Python Automation & Scripting', level: 92 },
+                            { name: 'Network Security & IDS/IPS', level: 88 },
+                            { name: 'AI/ML for Security', level: 85 },
+                            { name: 'DevSecOps & Secure SDLC', level: 87 },
+                            { name: 'Digital Forensics & Incident Response', level: 89 }
+                        ];
+                        skills.forEach((skill, index) => {
+                            setTimeout(() => {
+                                const bar = document.createElement('div');
+                                bar.className = 'skill-bar';
+                                bar.innerHTML = `
+                                    <div style="margin-bottom: 5px;">
+                                        <span class="success">${skill.name}</span>
+                                        <span style="float: right; color: #00ffcc;">${skill.level}%</span>
+                                    </div>
+                                    <div class="skill-progress">
+                                        <div class="skill-fill" style="width: 0%;" data-width="${skill.level}%"></div>
+                                    </div>
+                                `;
+                                output.appendChild(bar);
+                                setTimeout(() => {
+                                    bar.querySelector('.skill-fill').style.width = skill.level + '%';
+                                }, 100);
+                                output.scrollTop = output.scrollHeight;
+                            }, index * 250);
+                        });
+                        setTimeout(() => {
+                            addLine('');
+                            addLine('<span class="info">FRAMEWORKS & STANDARDS:</span>');
+                            addLine('NIST • ISO 27001 • MITRE ATT&CK • CIS Controls');
+                            addLine('');
+                            addLine('<span class="info">TOOLS & PLATFORMS:</span>');
+                            addLine('Kali Linux • Metasploit • Burp Suite • Wireshark • Nmap');
+                            addLine('Docker • Kubernetes • VMware • Git • ServiceNow • Jira');
+                            addLine('');
+                        }, skills.length * 250 + 500);
+                    }, 1500);
+                    break;
+
+                case 'projects':
+                    addLine('');
+                    addLine('<span class="info">════════ KEY SECURITY PROJECTS ════════</span>');
+                    addLine('');
+                    showLoadingBar(1000);
+                    setTimeout(() => {
+                        const projects = [
+                            {
+                                name: 'RUDRA – Real-time Universal Defense & Response AI',
+                                period: 'May 2023 – Present',
+                                desc: 'Integrated IDS, firewalls, and honeypots across multi-cloud platforms with AI algorithms, increasing threat detection and response efficiency by 40%.',
+                                tags: 'AI/ML | Multi-Cloud | IDS/IPS | Threat Detection'
+                            },
+                            {
+                                name: 'RTFMS – Real Time Face Mask Surveillance System',
+                                period: 'May 2021 – Aug 2021',
+                                desc: 'Deployed DNN-based mask detection on Shodan-fed CCTV streams, improving compliance by 20% using Python, TensorFlow, and OpenCV.',
+                                tags: 'Deep Learning | Computer Vision | Python | TensorFlow'
+                            },
+                            {
+                                name: 'Gesture Glove Input System',
+                                period: 'Jan 2021 – May 2021',
+                                desc: 'Built secure gesture HCI system using AES encryption and ML-based side-channel attack validation for enhanced security.',
+                                tags: 'HCI | Cryptography | Machine Learning | IoT'
+                            },
+                            {
+                                name: 'Soldier Strap – Secure Wearable Communications',
+                                period: 'Research Project',
+                                desc: 'Designed LoRa/GSM-based communication device with biometric authentication and encrypted peer-to-peer connectivity for military applications.',
+                                tags: 'LoRa | Biometrics | Encryption | Embedded Systems'
+                            }
+                        ];
+                        projects.forEach((project, index) => {
+                            setTimeout(() => {
+                                const box = document.createElement('div');
+                                box.className = 'project-box';
+                                box.innerHTML = `
+                                    <div style="color: #00ffcc; font-weight: bold; margin-bottom: 5px;">
+                                        ▸ ${project.name}
+                                    </div>
+                                    <div style="color: #ffaa00; margin-bottom: 10px; font-size: 0.85em;">
+                                        ${project.period}
+                                    </div>
+                                    <div style="margin: 10px 0; line-height: 1.6;">
+                                        ${project.desc}
+                                    </div>
+                                    <div style="color: #00ff88; font-size: 0.9em;">
+                                        [${project.tags}]
+                                    </div>
+                                `;
+                                output.appendChild(box);
+                                output.scrollTop = output.scrollHeight;
+                            }, index * 400);
+                        });
+                        setTimeout(() => addLine(''), projects.length * 400 + 500);
+                    }, 1000);
+                    break;
+
+                case 'education':
+                    addLine('');
+                    addLine('<span class="info">════════ ACADEMIC CREDENTIALS ════════</span>');
+                    addLine('');
+                    showLoadingBar(1000);
+                    setTimeout(() => {
+                        addLine('<span class="gold">╔════════════════════════════════════════════════════╗</span>');
+                        addLine('<span class="gold">║  Master of Science (MS)                           ║</span>');
+                        addLine('<span class="gold">║  Computer Information Science & Engineering       ║</span>');
+                        addLine('<span class="gold">╚════════════════════════════════════════════════════╝</span>');
+                        addLine('<span class="success">INSTITUTION:</span> University of Florida');
+                        addLine('<span class="success">LOCATION:</span> Gainesville, FL, USA');
+                        addLine('<span class="success">PERIOD:</span> 2025 – 2027');
+                        addLine('');
+                        addLine('<span class="info">────────────────────────────────────────────</span>');
+                        addLine('');
+                        addLine('<span class="gold">╔════════════════════════════════════════════════════╗</span>');
+                        addLine('<span class="gold">║  Bachelor of Technology (B.Tech)                  ║</span>');
+                        addLine('<span class="gold">║  Computer Science & Engineering                   ║</span>');
+                        addLine('<span class="gold">╚════════════════════════════════════════════════════╝</span>');
+                        addLine('<span class="success">INSTITUTION:</span> Vidya Bharathi Institute of Technology (VBIT)');
+                        addLine('<span class="success">LOCATION:</span> Hyderabad, India');
+                        addLine('<span class="success">PERIOD:</span> 2017 – 2021');
+                        addLine('');
+                    }, 1000);
+                    break;
+
+                case 'certs':
+                    addLine('');
+                    addLine('<span class="info">════════ CERTIFICATIONS ════════</span>');
+                    addLine('');
+                    showLoadingBar(1200);
+                    setTimeout(() => {
+                        addLine('• Certified Ethical Hacker (CEH) v11');
+                        addLine('• AWS Certified Security – Specialty');
+                        addLine('• Microsoft Certified: Azure Security Engineer Associate');
+                        addLine('• CompTIA Security+');
+                        addLine('• Palo Alto Networks Cybersecurity Associate');
+                        addLine('');
+                    }, 1200);
+                    break;
+
+                case 'contact':
+                    addLine('');
+                    addLine('<span class="info">════════ CONTACT ════════</span>');
+                    addLine('');
+                    showLoadingBar(800);
+                    setTimeout(() => {
+                        addLine('<span class="success">EMAIL:</span> anurag.achanta@email.com');
+                        addLine('<span class="success">LINKEDIN:</span> linkedin.com/in/anuragachanta');
+                        addLine('<span class="success">GITHUB:</span> github.com/anuragachanta');
+                        addLine('<span class="success">LOCATION:</span> Gainesville, FL, USA');
+                        addLine('');
+                    }, 800);
+                    break;
+
+                case 'clear':
+                    output.innerHTML = '';
+                    break;
+
+                case 'scan':
+                    addLine('');
+                    addLine('<span class="warning">[!] Running security scan...</span>');
+                    showLoadingBar(3000);
+                    setTimeout(() => {
+                        addLine('[<span class="success">✓</span>] Ports Scanned: 65535');
+                        addLine('[<span class="success">✓</span>] No vulnerabilities detected');
+                        addLine('[<span class="success">✓</span>] IDS systems online');
+                        addLine('[<span class="success">✓</span>] Security mesh stable');
+                        addLine('<span class="info">System is secure.</span>');
+                        addLine('');
+                    }, 3000);
+                    break;
+
+                default:
+                    if (cmd) {
+                        addLine(`<span class="error">Command not found:</span> ${cmd}. Type <span class="warning">help</span> for options.`);
+                    }
+            }
+        }
+
+        commandInput.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') {
+                const cmd = commandInput.value;
+                executeCommand(cmd);
+                commandInput.value = '';
+            } else if (e.key === 'ArrowUp') {
+                if (commandHistory.length > 0) {
+                    historyIndex = (historyIndex + 1) % commandHistory.length;
+                    commandInput.value = commandHistory[historyIndex];
+                }
+            } else if (e.key === 'ArrowDown') {
+                if (commandHistory.length > 0) {
+                    historyIndex = historyIndex - 1;
+                    if (historyIndex < 0) historyIndex = commandHistory.length - 1;
+                    commandInput.value = commandHistory[historyIndex];
+                }
+            }
+        });
+
+        // Keyboard shortcuts mapping
+        const shortcutMap = {
+            a: 'about',
+            e: 'experience',
+            s: 'skills',
+            p: 'projects',
+            d: 'education',
+            c: 'certs',
+            o: 'contact',
+            x: 'clear',
+            z: 'scan',
+            h: 'help'
+        };
+        document.addEventListener('keydown', (e) => {
+            if (document.activeElement === commandInput) return;
+            const key = e.key.toLowerCase();
+            if (shortcutMap[key]) {
+                executeCommand(shortcutMap[key]);
+            }
+        });
+
+        window.onload = () => {
+            initializeTerminal();
+        };
+    </script>
+</body>
+</html>
