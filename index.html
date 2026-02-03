@@ -3,8 +3,31 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ANURAG ACHANTA | CYBER_TERMINAL</title>
+    
+    <!-- SEO Optimization -->
+    <title>Anurag Achanta | Cybersecurity Engineer | MS Computer Science @ UF</title>
+    <meta name="description" content="Cybersecurity Engineer with 3+ years of Fortune 500 experience. MS Computer Science student at University of Florida specializing in AI-driven security. Zero breaches for 3 years at TCS.">
+    <meta name="keywords" content="cybersecurity engineer, security analyst, penetration testing, cloud security, Anurag Achanta, TCS, University of Florida, RUDRA, AI security">
+    <meta name="author" content="Anurag Achanta">
+    
+    <!-- Open Graph / Social Media -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://algorithmsglitch.github.io/portfolio/">
+    <meta property="og:title" content="Anurag Achanta | Cybersecurity Engineer">
+    <meta property="og:description" content="Security engineer building AI-powered defense systems. Zero breaches for 3 years at TCS. Now pursuing MS in Computer Science at University of Florida.">
+    <meta property="og:image" content="https://algorithmsglitch.github.io/portfolio/anurag.jpg">
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Anurag Achanta | Cybersecurity Engineer">
+    <meta name="twitter:description" content="Building AI-powered defense systems | Zero breaches for 3 years | MS CS @ UF">
+    
+    <!-- Favicon -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔐</text></svg>">
+    
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Space+Mono:wght@400;700&display=swap');
+        
         * {
             margin: 0;
             padding: 0;
@@ -12,7 +35,7 @@
         }
 
         body {
-            font-family: 'Courier New', monospace;
+            font-family: 'JetBrains Mono', 'Courier New', monospace;
             background: #000;
             color: #00ff88;
             overflow-x: hidden;
@@ -207,6 +230,10 @@
             color: #ffd700;
         }
 
+        .purple {
+            color: #ff00ff;
+        }
+
         .typing-cursor {
             display: inline-block;
             width: 10px;
@@ -225,7 +252,7 @@
             background: none;
             border: none;
             color: #00ff88;
-            font-family: 'Courier New', monospace;
+            font-family: 'JetBrains Mono', 'Courier New', monospace;
             font-size: 1em;
             outline: none;
             width: 80%;
@@ -284,6 +311,7 @@
             border-color: #00ff88;
             background: rgba(0, 255, 136, 0.1);
             box-shadow: 0 0 15px rgba(0, 255, 136, 0.3);
+            transform: translateY(-2px);
         }
 
         .loading-bar {
@@ -343,13 +371,6 @@
             94% { transform: translate(2px, -2px); }
         }
 
-        .profile-image {
-            max-width: 100%;
-            border: 2px solid #00ff88;
-            box-shadow: 0 0 20px rgba(0, 255, 136, 0.3);
-            margin: 20px 0;
-        }
-
         .experience-block {
             margin: 15px 0;
             padding: 15px;
@@ -357,20 +378,52 @@
             background: rgba(0, 255, 136, 0.05);
         }
 
+        .link-button {
+            display: inline-block;
+            padding: 8px 16px;
+            margin: 5px;
+            background: rgba(0, 255, 136, 0.1);
+            border: 1px solid #00ff88;
+            color: #00ff88;
+            text-decoration: none;
+            transition: all 0.3s;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .link-button:hover {
+            background: rgba(0, 255, 136, 0.2);
+            box-shadow: 0 0 10px rgba(0, 255, 136, 0.5);
+            transform: translateY(-2px);
+        }
+
+        .recruiter-box {
+            margin: 20px 0;
+            padding: 25px;
+            border: 2px solid #ffd700;
+            background: rgba(255, 215, 0, 0.05);
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.2);
+        }
+
         @media (max-width: 768px) {
             .terminal-container {
                 padding: 10px;
+                margin: 10px;
             }
             
             .terminal-body {
                 padding: 15px;
+            }
+
+            .command-input {
+                width: 70%;
+                font-size: 0.9em;
             }
         }
     </style>
 </head>
 <body class="crt">
     <div class="scanlines"></div>
-    <div class="hero-banner" style="background-image: url('anurag.jpg');"></div>
+    <div class="hero-banner"></div>
     <canvas class="matrix-bg" id="matrix"></canvas>
     
     <div class="terminal-container">
@@ -413,17 +466,33 @@
                 <div class="command-item" onclick="executeCommand('contact')">
                     <span class="success">▶</span> contact - Contact information
                 </div>
-                <div class="command-item" onclick="executeCommand('clear')">
-                    <span class="success">▶</span> clear - Clear terminal
+                <div class="command-item" onclick="executeCommand('resume')">
+                    <span class="gold">▶</span> resume - Download resume (PDF)
+                </div>
+                <div class="command-item" onclick="executeCommand('github')">
+                    <span class="info">▶</span> github - View GitHub profile
+                </div>
+                <div class="command-item" onclick="executeCommand('linkedin')">
+                    <span class="info">▶</span> linkedin - View LinkedIn profile
+                </div>
+                <div class="command-item" onclick="executeCommand('recruiter')">
+                    <span class="gold">▶</span> recruiter - Quick access for recruiters
+                </div>
+                <div class="command-item" onclick="executeCommand('hire')">
+                    <span class="gold">▶</span> hire - Internship availability
                 </div>
                 <div class="command-item" onclick="executeCommand('scan')">
                     <span class="warning">▶</span> scan - Run security scan simulation
+                </div>
+                <div class="command-item" onclick="executeCommand('clear')">
+                    <span class="success">▶</span> clear - Clear terminal
                 </div>
             </div>
         </div>
     </div>
 
     <script>
+        // Matrix background animation
         const canvas = document.getElementById('matrix');
         const ctx = canvas.getContext('2d');
 
@@ -460,6 +529,7 @@
             canvas.height = window.innerHeight;
         });
 
+        // Terminal logic
         const output = document.getElementById('terminal-output');
         const inputLine = document.getElementById('input-line');
         const commandInput = document.getElementById('command-input');
@@ -487,7 +557,7 @@
 
         function initializeTerminal() {
             addLine('<span class="info">╔═══════════════════════════════════════════════════════════╗</span>');
-            addLine('<span class="info">║         ANURAG ACHANTA CYBER TERMINAL v3.1.4             ║</span>');
+            addLine('<span class="info">║         ANURAG ACHANTA CYBER TERMINAL v3.2.0             ║</span>');
             addLine('<span class="info">║            SECURITY DEPLOYMENT SYSTEM ONLINE              ║</span>');
             addLine('<span class="info">╚═══════════════════════════════════════════════════════════╝</span>');
             addLine('');
@@ -509,10 +579,15 @@
             setTimeout(() => {
                 addLine('[<span class="success">✓</span>] Multi-cloud security mesh active. <span class="status-indicator"></span>', 'success');
                 addLine('');
-                addLine('<span class="gold">ANURAG ACHANTA | Cybersecurity Engineer</span>');
-                addLine('<span class="info">University of Florida | MS in Computer & Information Science</span>');
+                addLine('<span class="gold">╔════════════════════════════════════════════════════╗</span>');
+                addLine('<span class="gold">║  ANURAG ACHANTA | Cybersecurity Engineer          ║</span>');
+                addLine('<span class="gold">║  University of Florida | MS Computer Science      ║</span>');
+                addLine('<span class="gold">║  Former Security Lead @ TCS | Zero Breaches 3yr   ║</span>');
+                addLine('<span class="gold">╚════════════════════════════════════════════════════╝</span>');
                 addLine('');
-                addLine('<span class="warning">Type "help" to see available commands or click below:</span>');
+                addLine('<span class="success">🎯 Currently seeking Summer 2026 Security Engineering Internships</span>');
+                addLine('');
+                addLine('<span class="warning">Type "help" for commands | "demo" for auto-walkthrough | "recruiter" for quick access</span>');
                 addLine('');
                 commandMenu.style.display = 'block';
                 inputLine.style.display = 'block';
@@ -532,17 +607,48 @@
             switch(cmd) {
                 case 'help':
                     addLine('');
-                    addLine('<span class="info">Available Commands:</span>');
-                    addLine('  <span class="success">about</span>        - Display system information');
-                    addLine('  <span class="success">experience</span>   - Professional background');
-                    addLine('  <span class="success">skills</span>       - Technical capabilities');
-                    addLine('  <span class="success">projects</span>     - Key security projects');
-                    addLine('  <span class="success">education</span>    - Academic credentials');
-                    addLine('  <span class="success">certs</span>        - Certifications');
-                    addLine('  <span class="success">contact</span>      - Contact information');
-                    addLine('  <span class="success">clear</span>        - Clear terminal');
-                    addLine('  <span class="warning">scan</span>         - Run security scan');
+                    addLine('<span class="info">════════ COMMAND REFERENCE ════════</span>');
                     addLine('');
+                    addLine('<span class="gold">📋 ESSENTIAL:</span>');
+                    addLine('  <span class="success">about</span>        - Who am I? System profile');
+                    addLine('  <span class="success">experience</span>   - Professional journey');
+                    addLine('  <span class="success">skills</span>       - Technical capabilities');
+                    addLine('  <span class="success">projects</span>     - Security projects portfolio');
+                    addLine('  <span class="success">education</span>    - Academic background');
+                    addLine('  <span class="success">certs</span>        - Certifications');
+                    addLine('');
+                    addLine('<span class="gold">🔗 CONNECT:</span>');
+                    addLine('  <span class="info">contact</span>      - Get in touch');
+                    addLine('  <span class="info">resume</span>       - Download PDF resume');
+                    addLine('  <span class="info">github</span>       - View GitHub profile');
+                    addLine('  <span class="info">linkedin</span>     - Visit LinkedIn');
+                    addLine('');
+                    addLine('<span class="gold">💼 FOR RECRUITERS:</span>');
+                    addLine('  <span class="gold">recruiter</span>    - Quick access mode');
+                    addLine('  <span class="gold">hire</span>         - Availability & roles');
+                    addLine('');
+                    addLine('<span class="gold">🎮 INTERACTIVE:</span>');
+                    addLine('  <span class="warning">scan</span>         - Security scan demo');
+                    addLine('  <span class="warning">demo</span>         - Auto-walkthrough');
+                    addLine('  <span class="success">clear</span>        - Clear screen');
+                    addLine('');
+                    addLine('<span class="purple">🥚 Try: whoami, hack, coffee, sudo, secrets</span>');
+                    addLine('');
+                    break;
+
+                case 'demo':
+                    addLine('');
+                    addLine('<span class="info">[AUTO-DEMO MODE] Running walkthrough...</span>');
+                    addLine('');
+                    setTimeout(() => executeCommand('about'), 2000);
+                    setTimeout(() => executeCommand('skills'), 8000);
+                    setTimeout(() => executeCommand('projects'), 16000);
+                    setTimeout(() => executeCommand('contact'), 24000);
+                    setTimeout(() => {
+                        addLine('');
+                        addLine('<span class="success">[DEMO COMPLETE] Type any command to continue exploring!</span>');
+                        addLine('');
+                    }, 28000);
                     break;
 
                 case 'about':
@@ -559,16 +665,19 @@
                         addLine('<span class="success">DESIGNATION:</span> Security Deployment Lead');
                         addLine('<span class="success">EXPERIENCE:</span> 3+ Years in Cybersecurity Engineering');
                         addLine('<span class="success">CURRENT:</span> MS Student at University of Florida');
+                        addLine('<span class="success">SPECIALIZATION:</span> AI-Driven Security & Cloud Architecture');
                         addLine('');
-                        addLine('<span class="info">EXPERTISE:</span>');
+                        addLine('<span class="info">CORE EXPERTISE:</span>');
                         addLine('├─ Risk Assessment & Compliance Management');
                         addLine('├─ Penetration Testing & Threat Hunting');
                         addLine('├─ Secure Cloud Architecture (AWS, Azure, GCP)');
                         addLine('├─ Python Automation & DevSecOps');
-                        addLine('└─ AI/ML-Driven Defense Systems');
+                        addLine('├─ AI/ML-Driven Defense Systems');
+                        addLine('└─ Multi-Framework Security (NIST, ISO 27001, MITRE ATT&CK)');
                         addLine('');
-                        addLine('<span class="warning">MISSION:</span> Delivering enterprise-grade security solutions');
-                        addLine('using NIST, ISO 27001, MITRE ATT&CK, and CIS Controls.');
+                        addLine('<span class="warning">ACHIEVEMENT UNLOCKED:</span> <span class="gold">⭐ Zero Breaches for 3 Consecutive Years</span>');
+                        addLine('');
+                        addLine('<span class="info">💡 Fun Fact:</span> 60% of my best security findings came after 10pm with coffee ☕');
                         addLine('');
                     }, 1000);
                     break;
@@ -590,15 +699,18 @@
                                 System Engineer — Security Deployment Lead
                             </div>
                             <div style="color: #ffaa00; margin-bottom: 12px; font-size: 0.9em;">
-                                May 2022 – Aug 2025
+                                May 2022 – August 2025 | Hyderabad, India
                             </div>
                             <div style="line-height: 1.8;">
-                                ✓ Led security deployments for Fortune 500 clients (J&J, GE, Eli Lilly)<br>
-                                ✓ Reduced compliance audit failures by 30%, zero breaches for 3 years<br>
-                                ✓ Performed risk assessments across 500+ systems, remediating 150+ gaps<br>
-                                ✓ Designed Python automation pipelines (AWS, Azure), boosting performance 35%<br>
-                                ✓ Directed 80+ engineers, mentored 300+ professionals in security ops<br>
-                                ✓ Enhanced security via PAM, VPN/firewall monitoring, compliance frameworks
+                                ✓ Led security deployments for Fortune 500 clients (Johnson & Johnson, GE Healthcare, Eli Lilly)<br>
+                                ✓ Achieved zero security breaches for 3 consecutive years<br>
+                                ✓ Reduced compliance audit failures by 30% through automation<br>
+                                ✓ Performed risk assessments across 500+ enterprise systems, remediating 150+ security gaps<br>
+                                ✓ Designed Python automation pipelines integrating AWS EC2/S3 and Azure databases<br>
+                                ✓ Boosted system performance by 35%, reduced manual operations by 50%<br>
+                                ✓ Collaborated with 80+ engineers on security operations and cloud governance<br>
+                                ✓ Mentored junior engineers on Python scripting, RPA, and GenAI applications<br>
+                                ✓ Implemented PAM, VPN/firewall monitoring, multi-framework compliance (NIST, ISO 27001, SOC 2)
                             </div>
                         `;
                         output.appendChild(exp);
@@ -616,13 +728,13 @@
                                     Founder / President
                                 </div>
                                 <div style="color: #ffaa00; margin-bottom: 12px; font-size: 0.9em;">
-                                    Jul 2019 – Sep 2021
+                                    July 2019 – September 2021 | Hyderabad, India
                                 </div>
                                 <div style="line-height: 1.8;">
-                                    ✓ Founded innovation hub delivering 30+ R&D projects, 8 student startups<br>
-                                    ✓ Built nationwide network of 30+ "Under 30" innovators<br>
-                                    ✓ Spearheaded secure communication prototypes and AI-driven cybersecurity projects<br>
-                                    ✓ Recognized at national tech forums for innovation leadership
+                                    ✓ Founded student innovation hub delivering 30+ R&D projects and 8 student-led startups<br>
+                                    ✓ Built nationwide network of 30+ student innovators under age 30<br>
+                                    ✓ Led development of secure communication prototypes and AI-driven cybersecurity proof-of-concepts<br>
+                                    ✓ Recognized at national technology forums and competitions for innovation leadership
                                 </div>
                             `;
                             output.appendChild(exp2);
@@ -677,11 +789,13 @@
                         setTimeout(() => {
                             addLine('');
                             addLine('<span class="info">FRAMEWORKS & STANDARDS:</span>');
-                            addLine('NIST • ISO 27001 • MITRE ATT&CK • CIS Controls');
+                            addLine('NIST Cybersecurity Framework • ISO 27001 • MITRE ATT&CK • CIS Controls • SOC 2 • GDPR');
                             addLine('');
                             addLine('<span class="info">TOOLS & PLATFORMS:</span>');
-                            addLine('Kali Linux • Metasploit • Burp Suite • Wireshark • Nmap');
-                            addLine('Docker • Kubernetes • VMware • Git • ServiceNow • Jira');
+                            addLine('<span class="success">Security:</span> Kali Linux • Metasploit • Burp Suite • Wireshark • Nmap • Snort • Suricata • Flipper Zero');
+                            addLine('<span class="success">Cloud:</span> AWS (EC2, S3, IAM, CloudTrail) • Azure (VMs, SQL, AD) • GCP • Docker • Kubernetes');
+                            addLine('<span class="success">Programming:</span> Python • Bash • SQL • C/C++ • JavaScript • PowerShell');
+                            addLine('<span class="success">DevOps:</span> Git/GitHub • Terraform • Ansible • CI/CD • ServiceNow • Jira');
                             addLine('');
                         }, skills.length * 250 + 500);
                     }, 1500);
@@ -698,26 +812,37 @@
                             {
                                 name: 'RUDRA – Real-time Universal Defense & Response AI',
                                 period: 'May 2023 – Present',
-                                desc: 'Integrated IDS, firewalls, and honeypots across multi-cloud platforms with AI algorithms, increasing threat detection and response efficiency by 40%.',
-                                tags: 'AI/ML | Multi-Cloud | IDS/IPS | Threat Detection'
+                                desc: 'Developing integrated security platform combining IDS (Snort/Suricata), firewalls, and honeypots across AWS, Azure, and GCP with machine learning algorithms for automated threat correlation. Achieved 40% improvement in detection accuracy and reduced mean time to response.',
+                                tags: 'AI/ML | Multi-Cloud | IDS/IPS | Threat Detection | Python',
+                                github: 'github.com/algorithmsglitch/RUDRA'
+                            },
+                            {
+                                name: 'DST – Data Sanitization Toolkit',
+                                period: '2024 – Present',
+                                desc: 'Automated toolkit for secure data sanitization and PII removal. Built for compliance with GDPR and HIPAA requirements in enterprise environments.',
+                                tags: 'Data Security | Compliance | GDPR | HIPAA | Python',
+                                github: 'github.com/algorithmsglitch/DST-Data-Sanitization-Toolkit'
+                            },
+                            {
+                                name: 'RF Fingerprinting',
+                                period: '2024',
+                                desc: 'Machine learning-based RF signal analysis for device identification and security threat detection in wireless environments. Implements advanced signal processing techniques.',
+                                tags: 'ML | Wireless Security | Signal Processing | Python | TensorFlow',
+                                github: 'github.com/algorithmsglitch/rf-fingerprinting'
                             },
                             {
                                 name: 'RTFMS – Real Time Face Mask Surveillance System',
-                                period: 'May 2021 – Aug 2021',
-                                desc: 'Deployed DNN-based mask detection on Shodan-fed CCTV streams, improving compliance by 20% using Python, TensorFlow, and OpenCV.',
-                                tags: 'Deep Learning | Computer Vision | Python | TensorFlow'
+                                period: 'May 2021 – August 2021',
+                                desc: 'Deployed deep neural network-based mask detection system processing live CCTV feeds indexed via Shodan, improving organizational compliance monitoring by 20% using Python, TensorFlow, and OpenCV.',
+                                tags: 'Deep Learning | Computer Vision | Python | TensorFlow | OpenCV',
+                                github: 'N/A'
                             },
                             {
                                 name: 'Gesture Glove Input System',
-                                period: 'Jan 2021 – May 2021',
-                                desc: 'Built secure gesture HCI system using AES encryption and ML-based side-channel attack validation for enhanced security.',
-                                tags: 'HCI | Cryptography | Machine Learning | IoT'
-                            },
-                            {
-                                name: 'Soldier Strap – Secure Wearable Communications',
-                                period: 'Research Project',
-                                desc: 'Designed LoRa/GSM-based communication device with biometric authentication and encrypted peer-to-peer connectivity for military applications.',
-                                tags: 'LoRa | Biometrics | Encryption | Embedded Systems'
+                                period: 'January 2021 – May 2021',
+                                desc: 'Engineered secure gesture-based human-computer interface with AES-256 encryption for data transmission and ML-based validation against side-channel attacks.',
+                                tags: 'HCI | Cryptography | Machine Learning | IoT | AES-256',
+                                github: 'N/A'
                             }
                         ];
 
@@ -735,9 +860,10 @@
                                     <div style="margin: 10px 0; line-height: 1.6;">
                                         ${project.desc}
                                     </div>
-                                    <div style="color: #00ff88; font-size: 0.9em;">
+                                    <div style="color: #00ff88; font-size: 0.9em; margin-bottom: 8px;">
                                         [${project.tags}]
                                     </div>
+                                    ${project.github !== 'N/A' ? `<div style="color: #00ccff; font-size: 0.85em;">🔗 ${project.github}</div>` : ''}
                                 `;
                                 output.appendChild(box);
                                 output.scrollTop = output.scrollHeight;
@@ -757,7 +883,16 @@
                     setTimeout(() => {
                         addLine('<span class="gold">╔════════════════════════════════════════════════════╗</span>');
                         addLine('<span class="gold">║  Master of Science (MS)                           ║</span>');
-                        addLine('<span class="gold">║  Computer Information Science & Engineering       ║</span>');
+                        addLine('<span class="gold">║  Computer Science                                 ║</span>');
+                        addLine('<span class="gold">╚════════════════════════════════════════════════════╝</span>');
+                        addLine('<span class="success">INSTITUTION:</span> University of Florida');
+                        addLine('<span class="success">LOCATION:</span> Gainesville, Florida, USA');
+                        addLine('<span class="success">PERIOD:</span> August 2025 – May 2027 (Expected)');
+                        addLine('<span class="success">FOCUS:</span> AI-Driven Cybersecurity & Cloud Security Architecture');
+                        addLine('');
+                        addLine('<span class="gold">╔════════════════════════════════════════════════════╗</span>');
+                        addLine('<span class="gold">║  Bachelor of Technology (BTech)                   ║</span>');
+                        addLine('<span class="gold">║  Computer Science & Engineering                   ║</span>');
                         addLine('<span class="gold">╚════════════════════════════════════════════════════╝</span>');
                         addLine('<span class="success">INSTITUTION:</span> Jawaharlal Nehru Technological University');
                         addLine('<span class="success">LOCATION:</span> Hyderabad, India');
@@ -774,7 +909,7 @@
                     
                     setTimeout(() => {
                         addLine('<span class="warning">⚡ IN PROGRESS:</span>');
-                        addLine('[<span class="warning">~</span>] CompTIA Security+', 'warning', 0);
+                        addLine('[<span class="warning">~</span>] CompTIA Security+ (Expected March 2026)', 'warning', 0);
                         addLine('[<span class="warning">~</span>] Google Professional Cloud Security Engineer', 'warning', 200);
                         addLine('');
                         addLine('<span class="success">✓ COMPLETED:</span>');
@@ -790,14 +925,245 @@
                     addLine('');
                     addLine('<span class="info">════════ CONTACT INFORMATION ════════</span>');
                     addLine('');
-                    addLine('<span class="success">EMAIL:</span> anuragachanta8197@gmail.com');
-                    addLine('<span class="success">PHONE:</span> +1-762-416-0460');
-                    addLine('<span class="success">LINKEDIN:</span> linkedin.com/in/anuragachanta');
-                    addLine('<span class="success">GITHUB:</span> github.com/kingsandkinsneverfade');
-                    addLine('<span class="success">LOCATION:</span> Gainesville, Florida, USA');
+                    addLine('<span class="success">📧 EMAIL:</span> anuragachanta8197@gmail.com');
+                    addLine('<span class="success">📱 PHONE:</span> +1-762-416-0460');
+                    addLine('<span class="success">💼 LINKEDIN:</span> linkedin.com/in/anuragachanta');
+                    addLine('<span class="success">💻 GITHUB:</span> github.com/algorithmsglitch');
+                    addLine('<span class="success">📍 LOCATION:</span> Gainesville, Florida, USA');
+                    addLine('<span class="success">🌐 PORTFOLIO:</span> algorithmsglitch.github.io/portfolio');
                     addLine('');
-                    addLine('<span class="warning">SECURE CHANNELS AVAILABLE | PGP ENCRYPTION SUPPORTED</span>');
+                    addLine('<span class="warning">🔐 SECURE CHANNELS AVAILABLE | PGP ENCRYPTION SUPPORTED</span>');
                     addLine('');
+                    addLine('<span class="info">Preferred contact method: Email for professional inquiries</span>');
+                    addLine('<span class="info">Response time: Usually within 24 hours</span>');
+                    addLine('');
+                    break;
+
+                case 'resume':
+                    addLine('');
+                    addLine('<span class="info">════════ RESUME DOWNLOAD ════════</span>');
+                    addLine('');
+                    showLoadingBar(1500);
+                    setTimeout(() => {
+                        addLine('[<span class="success">✓</span>] Generating resume PDF...', 'success');
+                        addLine('[<span class="success">✓</span>] Compiling professional experience...', 'success', 300);
+                        addLine('[<span class="success">✓</span>] Including certifications and projects...', 'success', 600);
+                        addLine('[<span class="success">✓</span>] Ready for download!', 'success', 900);
+                        addLine('');
+                        
+                        const downloadBox = document.createElement('div');
+                        downloadBox.style.margin = '20px 0';
+                        downloadBox.style.padding = '20px';
+                        downloadBox.style.border = '2px solid #00ff88';
+                        downloadBox.style.background = 'rgba(0, 255, 136, 0.1)';
+                        downloadBox.innerHTML = `
+                            <div style="color: #00ffcc; font-weight: bold; margin-bottom: 15px; font-size: 1.1em;">
+                                📄 ANURAG ACHANTA - RESUME
+                            </div>
+                            <div style="margin-bottom: 15px; line-height: 1.6;">
+                                <span class="success">Format:</span> PDF<br>
+                                <span class="success">Pages:</span> 2<br>
+                                <span class="success">Last Updated:</span> February 2026<br>
+                                <span class="success">File Size:</span> ~150KB
+                            </div>
+                            <div style="margin-top: 15px;">
+                                <a href="resume_updated.pdf" download="Anurag_Achanta_Resume.pdf" class="link-button">
+                                    ⬇️ Download PDF Resume
+                                </a>
+                                <span style="margin: 0 10px; color: #666;">|</span>
+                                <a href="mailto:anuragachanta8197@gmail.com?subject=Resume%20Request" class="link-button">
+                                    📧 Email Request
+                                </a>
+                            </div>
+                        `;
+                        output.appendChild(downloadBox);
+                        output.scrollTop = output.scrollHeight;
+                        
+                        setTimeout(() => addLine(''), 100);
+                    }, 1500);
+                    break;
+
+                case 'github':
+                    addLine('');
+                    addLine('<span class="info">════════ GITHUB PROFILE ════════</span>');
+                    addLine('');
+                    showLoadingBar(1000);
+                    setTimeout(() => {
+                        addLine('<span class="success">🔗 GITHUB:</span> github.com/algorithmsglitch');
+                        addLine('');
+                        addLine('<span class="gold">📊 PROFILE STATS:</span>');
+                        addLine('  <span class="info">Public Repositories:</span> 4');
+                        addLine('  <span class="info">Primary Language:</span> Python');
+                        addLine('  <span class="info">Profile Views:</span> Growing daily! 📈');
+                        addLine('');
+                        addLine('<span class="gold">🔥 FEATURED PROJECTS:</span>');
+                        addLine('  1. <span class="success">portfolio</span> - Interactive terminal-style portfolio (You\'re here!)');
+                        addLine('  2. <span class="success">DST-Data-Sanitization-Toolkit</span> - GDPR/HIPAA compliance automation');
+                        addLine('  3. <span class="success">rf-fingerprinting</span> - ML-powered wireless security analysis');
+                        addLine('  4. <span class="success">HWST-Final-Project</span> - UF Hardware Security Testing coursework');
+                        addLine('');
+                        
+                        const githubBox = document.createElement('div');
+                        githubBox.style.margin = '20px 0';
+                        githubBox.innerHTML = `
+                            <div style="text-align: center;">
+                                <a href="https://github.com/algorithmsglitch" target="_blank" class="link-button">
+                                    🚀 Visit GitHub Profile
+                                </a>
+                            </div>
+                        `;
+                        output.appendChild(githubBox);
+                        addLine('');
+                    }, 1000);
+                    break;
+
+                case 'linkedin':
+                    addLine('');
+                    addLine('<span class="info">════════ LINKEDIN PROFILE ════════</span>');
+                    addLine('');
+                    showLoadingBar(1000);
+                    setTimeout(() => {
+                        addLine('<span class="success">💼 LINKEDIN:</span> linkedin.com/in/anuragachanta');
+                        addLine('');
+                        addLine('<span class="gold">👤 PROFILE HIGHLIGHTS:</span>');
+                        addLine('  <span class="info">Headline:</span> Cybersecurity Engineer | MS CS @ UF');
+                        addLine('  <span class="info">Experience:</span> TCS, SHODH Innovation Cell');
+                        addLine('  <span class="info">Network:</span> 500+ Connections');
+                        addLine('  <span class="info">Focus:</span> Cloud Security, AI/ML for Defense, Automation');
+                        addLine('');
+                        addLine('<span class="warning">💡 Recent Activity:</span> Sharing insights on cybersecurity trends & innovation');
+                        addLine('');
+                        
+                        const linkedinBox = document.createElement('div');
+                        linkedinBox.style.margin = '20px 0';
+                        linkedinBox.innerHTML = `
+                            <div style="text-align: center;">
+                                <a href="https://www.linkedin.com/in/anuragachanta" target="_blank" class="link-button">
+                                    🔗 Connect on LinkedIn
+                                </a>
+                            </div>
+                        `;
+                        output.appendChild(linkedinBox);
+                        addLine('');
+                    }, 1000);
+                    break;
+
+                case 'recruiter':
+                    addLine('');
+                    addLine('<span class="gold">════════ RECRUITER QUICK ACCESS ════════</span>');
+                    addLine('');
+                    showLoadingBar(1500);
+                    
+                    setTimeout(() => {
+                        const recruiterBox = document.createElement('div');
+                        recruiterBox.className = 'recruiter-box';
+                        recruiterBox.innerHTML = `
+                            <div style="text-align: center; margin-bottom: 20px;">
+                                <div style="color: #ffd700; font-size: 1.3em; font-weight: bold; margin-bottom: 10px;">
+                                    ⭐ ANURAG ACHANTA - SECURITY ENGINEER
+                                </div>
+                                <div style="color: #00ff88; font-size: 1em;">
+                                    MS Computer Science @ University of Florida
+                                </div>
+                            </div>
+                            
+                            <div style="margin: 20px 0; padding: 15px; background: rgba(0,0,0,0.3); border: 1px solid #00ff88;">
+                                <div style="color: #00ffcc; font-weight: bold; margin-bottom: 10px;">📧 CONTACT INFORMATION</div>
+                                <div style="line-height: 1.8;">
+                                    <span class="success">Email:</span> anuragachanta8197@gmail.com<br>
+                                    <span class="success">Phone:</span> +1-762-416-0460<br>
+                                    <span class="success">LinkedIn:</span> linkedin.com/in/anuragachanta<br>
+                                    <span class="success">GitHub:</span> github.com/algorithmsglitch
+                                </div>
+                            </div>
+
+                            <div style="margin: 20px 0; padding: 15px; background: rgba(0,0,0,0.3); border: 1px solid #ffd700;">
+                                <div style="color: #ffd700; font-weight: bold; margin-bottom: 10px;">🎯 AVAILABILITY</div>
+                                <div style="line-height: 1.8;">
+                                    <span class="warning">Status:</span> <span class="success">Actively Seeking Summer 2026 Internships</span><br>
+                                    <span class="warning">Start Date:</span> May/June 2026<br>
+                                    <span class="warning">Duration:</span> 10-12 weeks (flexible)<br>
+                                    <span class="warning">Work Auth:</span> F-1 Student (CPT eligible)
+                                </div>
+                            </div>
+
+                            <div style="margin: 20px 0; padding: 15px; background: rgba(0,0,0,0.3); border: 1px solid #00ffcc;">
+                                <div style="color: #00ffcc; font-weight: bold; margin-bottom: 10px;">💼 TARGET ROLES</div>
+                                <div style="line-height: 1.8;">
+                                    ✓ Security Engineering Intern<br>
+                                    ✓ Cloud Security Intern<br>
+                                    ✓ Penetration Testing Intern<br>
+                                    ✓ DevSecOps Intern<br>
+                                    ✓ Security Analyst Intern
+                                </div>
+                            </div>
+
+                            <div style="margin: 20px 0; padding: 15px; background: rgba(0,0,0,0.3); border: 1px solid #ff00ff;">
+                                <div style="color: #ff00ff; font-weight: bold; margin-bottom: 10px;">🏆 KEY ACHIEVEMENTS</div>
+                                <div style="line-height: 1.8;">
+                                    ⭐ Zero security breaches for 3 years @ TCS<br>
+                                    ⭐ 30% reduction in compliance failures<br>
+                                    ⭐ 500+ systems secured across Fortune 500 clients<br>
+                                    ⭐ 150+ critical vulnerabilities remediated<br>
+                                    ⭐ 40% improvement in threat detection (RUDRA project)
+                                </div>
+                            </div>
+
+                            <div style="text-align: center; margin-top: 25px;">
+                                <a href="resume_updated.pdf" download class="link-button" style="margin: 5px;">
+                                    📄 Download Resume
+                                </a>
+                                <a href="mailto:anuragachanta8197@gmail.com?subject=Internship%20Opportunity" class="link-button" style="margin: 5px;">
+                                    📧 Send Email
+                                </a>
+                                <a href="https://www.linkedin.com/in/anuragachanta" target="_blank" class="link-button" style="margin: 5px;">
+                                    💼 LinkedIn
+                                </a>
+                            </div>
+                        `;
+                        output.appendChild(recruiterBox);
+                        output.scrollTop = output.scrollHeight;
+                        
+                        setTimeout(() => {
+                            addLine('');
+                            addLine('<span class="info">💡 Type "experience" for detailed background | "projects" for technical portfolio</span>');
+                            addLine('');
+                        }, 100);
+                    }, 1500);
+                    break;
+
+                case 'hire':
+                    addLine('');
+                    addLine('<span class="gold">════════ INTERNSHIP AVAILABILITY ════════</span>');
+                    addLine('');
+                    showLoadingBar(1000);
+                    setTimeout(() => {
+                        addLine('<span class="success">🎯 CURRENT STATUS:</span> <span class="gold">Actively Seeking Summer 2026 Internships</span>');
+                        addLine('');
+                        addLine('<span class="info">📅 TIMELINE:</span>');
+                        addLine('  <span class="success">Available:</span> May 2026');
+                        addLine('  <span class="success">Duration:</span> 10-12 weeks (flexible)');
+                        addLine('  <span class="success">Commitment:</span> Full-time (40 hours/week)');
+                        addLine('');
+                        addLine('<span class="info">💼 SEEKING ROLES IN:</span>');
+                        addLine('  ✓ Security Engineering');
+                        addLine('  ✓ Cloud Security (AWS/Azure/GCP)');
+                        addLine('  ✓ Penetration Testing / Ethical Hacking');
+                        addLine('  ✓ DevSecOps / Security Automation');
+                        addLine('  ✓ Threat Detection & Response');
+                        addLine('  ✓ Application Security');
+                        addLine('');
+                        addLine('<span class="info">🌍 LOCATION PREFERENCES:</span>');
+                        addLine('  ✓ Remote (Preferred)');
+                        addLine('  ✓ On-site (Open to relocation)');
+                        addLine('  ✓ Hybrid');
+                        addLine('');
+                        addLine('<span class="info">📧 CONTACT:</span> anuragachanta8197@gmail.com');
+                        addLine('<span class="info">💼 LINKEDIN:</span> linkedin.com/in/anuragachanta');
+                        addLine('');
+                        addLine('<span class="warning">⚡ Response time: Usually within 24 hours</span>');
+                        addLine('');
+                    }, 1000);
                     break;
 
                 case 'scan':
@@ -812,22 +1178,151 @@
                     setTimeout(() => addLine('[<span class="info">~</span>] Running AI-based threat detection algorithms...', 'info'), 2000);
                     setTimeout(() => addLine('[<span class="warning">!</span>] Simulated vulnerability detected: CVE-2024-DEMO-001', 'warning'), 2500);
                     setTimeout(() => addLine('[<span class="info">~</span>] Deploying automated remediation procedures...', 'info'), 3000);
+                    setTimeout(() => addLine('[<span class="success">✓</span>] Vulnerability patched successfully', 'success'), 3500);
                     setTimeout(() => addLine('[<span class="success">✓</span>] SCAN COMPLETE - All systems secured', 'success'), 3800);
-                    setTimeout(() => addLine('[<span class="success">✓</span>] Threat detection efficiency: +40% (RUDRA AI active)', 'success'), 4200);
-                    setTimeout(() => addLine('[<span class="info">i</span>] Detailed report: security_audit_' + Date.now() + '.pdf', 'info'), 4600);
-                    setTimeout(() => addLine(''), 5000);
-                    break;
-
-                case 'clear':
-                    output.innerHTML = '';
+                    setTimeout(() => {
+                        addLine('');
+                        addLine('<span class="gold">═══════════ SCAN RESULTS ═══════════</span>');
+                        addLine('<span class="success">✓ Systems Scanned:</span> Portfolio Infrastructure');
+                        addLine('<span class="success">✓ Vulnerabilities Found:</span> 0');
+                        addLine('<span class="success">✓ Threat Level:</span> SECURE 🛡️');
+                        addLine('<span class="success">✓ Firewall Status:</span> ACTIVE');
+                        addLine('<span class="success">✓ IDS/IPS:</span> MONITORING');
+                        addLine('<span class="success">✓ Encryption:</span> AES-256');
+                        addLine('<span class="success">✓ Detection Efficiency:</span> +40% (RUDRA AI active)');
+                        addLine('');
+                        addLine('<span class="info">📊 Detailed report:</span> security_audit_' + Date.now() + '.pdf');
+                        addLine('');
+                        addLine('<span class="warning">💡 This portfolio is secured better than Fort Knox!</span>');
+                        addLine('<span class="info">Want to see how I do it? Type "experience" or "projects"</span>');
+                        addLine('');
+                    }, 4200);
                     break;
 
                 case 'whoami':
                     addLine('');
-                    addLine('<span class="gold">ANURAG ACHANTA</span>');
-                    addLine('<span class="success">Cybersecurity Engineer | Security Deployment Lead</span>');
-                    addLine('<span class="info">Leading Cybersecurity Innovations | Research | Automation | Integrations</span>');
+                    addLine('<span class="gold">╔════════════════════════════════════════╗</span>');
+                    addLine('<span class="gold">║         ANURAG ACHANTA                 ║</span>');
+                    addLine('<span class="gold">╚════════════════════════════════════════╝</span>');
                     addLine('');
+                    addLine('<span class="success">🔐 Cybersecurity Engineer</span>');
+                    addLine('<span class="info">🎓 MS Computer Science @ University of Florida</span>');
+                    addLine('<span class="warning">🏢 Former Security Lead @ TCS (Fortune 500)</span>');
+                    addLine('<span class="purple">🤖 Building AI-Powered Defense Systems</span>');
+                    addLine('');
+                    addLine('<span class="gold">⭐ Achievement Unlocked: Zero Breaches for 3 Years</span>');
+                    addLine('');
+                    break;
+
+                case 'hack':
+                case 'pwn':
+                    addLine('');
+                    addLine('<span class="error">ACCESS DENIED</span>');
+                    addLine('');
+                    setTimeout(() => {
+                        addLine('<span class="warning">Just kidding! 😄</span>');
+                        addLine('');
+                        addLine('<span class="info">I do know how to do that... ethically, of course.</span>');
+                        addLine('');
+                        addLine('<span class="success">Check out my penetration testing experience:</span>');
+                        addLine('  → Type "projects" to see RUDRA and other security work');
+                        addLine('  → Type "experience" to see Fortune 500 security deployments');
+                        addLine('');
+                        addLine('<span class="warning">Remember: Always hack responsibly! 🔐</span>');
+                        addLine('');
+                    }, 1000);
+                    break;
+
+                case 'coffee':
+                    addLine('');
+                    addLine('<span class="warning">☕ Brewing coffee...</span>');
+                    showLoadingBar(2000);
+                    setTimeout(() => {
+                        addLine('');
+                        addLine('<span class="success">✓ Coffee ready!</span>');
+                        addLine('');
+                        addLine('<span class="info">Fun facts about me and coffee:</span>');
+                        addLine('  • 60% of my best security findings came after 10pm with coffee');
+                        addLine('  • I debug code better with caffeine in my system');
+                        addLine('  • My longest coding session: 14 hours fueled by espresso');
+                        addLine('');
+                        addLine('<span class="gold">Current coffee count today: ' + Math.floor(Math.random() * 5 + 2) + ' cups ☕</span>');
+                        addLine('');
+                        addLine('<span class="warning">But let\'s talk shop...</span>');
+                        addLine('<span class="info">Try: "experience" | "projects" | "skills"</span>');
+                        addLine('');
+                    }, 2000);
+                    break;
+
+                case 'sudo':
+                    const sudoArg = cmd.split(' ').slice(1).join(' ');
+                    addLine('');
+                    addLine('<span class="warning">[sudo] password for cyber@achanta:</span> ');
+                    setTimeout(() => {
+                        addLine('');
+                        addLine('<span class="success">🔒 Permission granted. You\'re already root here!</span>');
+                        addLine('');
+                        addLine('<span class="info">With great power comes great responsibility.</span>');
+                        addLine('');
+                        addLine('<span class="warning">Try these instead:</span>');
+                        addLine('  about | experience | projects | contact | resume');
+                        addLine('');
+                    }, 1500);
+                    break;
+
+                case 'secrets':
+                case 'secret':
+                    addLine('');
+                    addLine('<span class="purple">🔮 Accessing hidden archives...</span>');
+                    showLoadingBar(2000);
+                    setTimeout(() => {
+                        addLine('');
+                        addLine('<span class="gold">You found the easter egg! 🥚</span>');
+                        addLine('');
+                        addLine('<span class="info">Here are some secrets about me:</span>');
+                        addLine('');
+                        addLine('  🎮 I built my first "security tool" at age 16 (it was a WiFi sniffer)');
+                        addLine('  🌙 I do my best work between 10 PM and 2 AM');
+                        addLine('  🎵 I code while listening to: Lo-fi beats & synthwave');
+                        addLine('  🍕 Pizza preference: Margherita (classic and secure!)');
+                        addLine('  🎯 Hidden talent: I can type 90+ WPM in complete darkness');
+                        addLine('  🤖 I named my AI project RUDRA after a Hindu storm god');
+                        addLine('  📚 Currently reading: "The Art of Deception" by Kevin Mitnick');
+                        addLine('');
+                        addLine('<span class="warning">Shhh... don\'t tell the recruiters! 😉</span>');
+                        addLine('');
+                        addLine('<span class="success">Achievement Unlocked: "Curious Explorer" 🏆</span>');
+                        addLine('');
+                    }, 2000);
+                    break;
+
+                case 'exit':
+                case 'quit':
+                    addLine('');
+                    addLine('<span class="warning">Wait! Before you go...</span>');
+                    addLine('');
+                    setTimeout(() => {
+                        addLine('<span class="info">Thanks for exploring my portfolio! 🙏</span>');
+                        addLine('');
+                        addLine('<span class="success">Don\'t forget to:</span>');
+                        addLine('  📧 Email me: anuragachanta8197@gmail.com');
+                        addLine('  💼 Connect on LinkedIn: linkedin.com/in/anuragachanta');
+                        addLine('  💻 Check my GitHub: github.com/algorithmsglitch');
+                        addLine('  📄 Download my resume: Type "resume"');
+                        addLine('');
+                        addLine('<span class="gold">Looking forward to connecting with you!</span>');
+                        addLine('');
+                        addLine('<span class="info">Type "clear" to restart the terminal</span>');
+                        addLine('');
+                    }, 1000);
+                    break;
+
+                case 'clear':
+                    output.innerHTML = '';
+                    commandMenu.style.display = 'none';
+                    setTimeout(() => {
+                        initializeTerminal();
+                    }, 100);
                     break;
 
                 case '':
@@ -835,13 +1330,15 @@
 
                 default:
                     addLine(`<span class="error">Command not found: ${cmd}</span>`);
-                    addLine('Type "help" for available commands');
+                    addLine('<span class="info">Type "help" for available commands</span>');
+                    addLine('<span class="warning">💡 Try: about | projects | resume | recruiter</span>');
                     addLine('');
             }
 
             commandInput.value = '';
         }
 
+        // Command input handling
         commandInput.addEventListener('keydown', (e) => {
             if (e.key === 'Enter') {
                 executeCommand(commandInput.value);
@@ -860,10 +1357,34 @@
                     historyIndex = -1;
                     commandInput.value = '';
                 }
+            } else if (e.key === 'Tab') {
+                e.preventDefault();
+                const commands = ['about', 'experience', 'skills', 'projects', 'education', 'certs', 'contact', 'resume', 'github', 'linkedin', 'recruiter', 'hire', 'scan', 'help', 'demo', 'clear', 'whoami', 'hack', 'coffee', 'sudo', 'secrets'];
+                const partial = commandInput.value.toLowerCase();
+                const matches = commands.filter(cmd => cmd.startsWith(partial));
+                if (matches.length === 1) {
+                    commandInput.value = matches[0];
+                }
             }
         });
 
+        // Keep focus on input
+        document.addEventListener('click', () => {
+            commandInput.focus();
+        });
+
+        // Initialize
         initializeTerminal();
+    </script>
+
+    <!-- Google Analytics (Add your tracking ID) -->
+    <!-- <script async src="https://www.googletagmanager.com/gtag/js?id=YOUR_TRACKING_ID"></script> -->
+    <script>
+        // Uncomment and add your Google Analytics tracking ID
+        // window.dataLayer = window.dataLayer || [];
+        // function gtag(){dataLayer.push(arguments);}
+        // gtag('js', new Date());
+        // gtag('config', 'YOUR_TRACKING_ID');
     </script>
 </body>
 </html>
